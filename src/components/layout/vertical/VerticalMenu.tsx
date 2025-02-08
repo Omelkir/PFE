@@ -61,20 +61,40 @@ const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectSc
         renderExpandedMenuItemIcon={{ icon: <i className='ri-circle-line' /> }}
         menuSectionStyles={menuSectionStyles(theme)}
       >
-        <SubMenu
+        {/* <SubMenu
           label='Dashboards'
           icon={<i className='ri-home-smile-line' />}
-          suffix={<Chip label='5' size='small' color='error' />}
-        >
-          <MenuItem
+          // suffix={<Chip label='5' size='small' color='error' />}
+        > */}
+          {/* <MenuItem
             href={`${process.env.NEXT_PUBLIC_PRO_URL}/dashboards/crm`}
             suffix={<Chip label='Pro' size='small' color='primary' variant='tonal' />}
             target='_blank'
           >
             CRM
-          </MenuItem>
-          <MenuItem href='/'>Analytics</MenuItem>
+          </MenuItem> */}
+          {/* <MenuItem href='/'>Analytics</MenuItem> */}
           <MenuItem
+          href='/'
+          icon={<i className='ri-dashboard-fill' />}
+          >
+            Dashboards
+          </MenuItem>
+          <MenuItem href='/patient'>
+              Patient
+            </MenuItem>
+          {/* <SubMenu label='Patients' icon={<i className='ri-user-line' />}>
+            <MenuItem href='/login'>
+              Login
+            </MenuItem>
+            <MenuItem href='/register'>
+              Register
+            </MenuItem>
+            <MenuItem href='/forgot-password'>
+              Forgot Password
+            </MenuItem>
+          </SubMenu> */}
+          {/* <MenuItem
             href={`${process.env.NEXT_PUBLIC_PRO_URL}/dashboards/ecommerce`}
             suffix={<Chip label='Pro' size='small' color='primary' variant='tonal' />}
             target='_blank'
@@ -94,15 +114,15 @@ const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectSc
             target='_blank'
           >
             Logistics
-          </MenuItem>
-        </SubMenu>
-        <SubMenu
+          </MenuItem> */}
+        {/* </SubMenu> */}
+        {/* <SubMenu
           label='Front Pages'
           icon={<i className='ri-file-copy-line' />}
           suffix={<Chip label='Pro' size='small' color='primary' variant='tonal' />}
         >
           <MenuItem href={`${process.env.NEXT_PUBLIC_PRO_URL}/front-pages/landing-page`} target='_blank'>
-            Landing
+            123
           </MenuItem>
           <MenuItem href={`${process.env.NEXT_PUBLIC_PRO_URL}/front-pages/pricing`} target='_blank'>
             Pricing
@@ -116,9 +136,9 @@ const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectSc
           <MenuItem href={`${process.env.NEXT_PUBLIC_PRO_URL}/front-pages/help-center`} target='_blank'>
             Help Center
           </MenuItem>
-        </SubMenu>
+        </SubMenu> */}
         <MenuSection label='Apps & Pages'>
-          <MenuItem
+          {/* <MenuItem
             href={`${process.env.NEXT_PUBLIC_PRO_URL}/apps/email`}
             icon={<i className='ri-mail-open-line' />}
             suffix={<Chip label='Pro' size='small' color='primary' variant='tonal' />}
@@ -149,7 +169,7 @@ const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectSc
             target='_blank'
           >
             Kanban
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem href='/account-settings' icon={<i className='ri-user-settings-line' />}>
             Account Settings
           </MenuItem>
@@ -180,7 +200,7 @@ const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectSc
           <MenuItem href='/form-layouts' icon={<i className='ri-layout-4-line' />}>
             Form Layouts
           </MenuItem>
-          <MenuItem
+          {/* <MenuItem
             href={`${process.env.NEXT_PUBLIC_PRO_URL}/forms/form-validation`}
             icon={<i className='ri-checkbox-multiple-line' />}
             suffix={<Chip label='Pro' size='small' color='primary' variant='tonal' />}
@@ -203,7 +223,7 @@ const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectSc
             target='_blank'
           >
             React Table
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem
             href={`${process.env.NEXT_PUBLIC_DOCS_URL}/docs/user-interface/form-elements`}
             icon={<i className='ri-radio-button-line' />}
@@ -221,7 +241,7 @@ const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectSc
             MUI Tables
           </MenuItem>
         </MenuSection>
-        <MenuSection label='Misc'>
+        {/* <MenuSection label='Misc'>
           <MenuItem
             href={`${process.env.NEXT_PUBLIC_DOCS_URL}/docs/user-interface/foundation`}
             icon={<i className='ri-pantone-line' />}
@@ -280,7 +300,7 @@ const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectSc
             </SubMenu>
             <MenuItem disabled>Disabled Menu</MenuItem>
           </SubMenu>
-        </MenuSection>
+        </MenuSection> */}
       </Menu>
     </ScrollWrapper>
   )

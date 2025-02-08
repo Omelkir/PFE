@@ -16,11 +16,33 @@ import Table from '@views/dashboard/Table'
 const DashboardAnalytics = () => {
   return (
     <Grid container spacing={6}>
-      <Grid item xs={12} md={4}>
-        <Award />
-      </Grid>
-      <Grid item xs={12} md={8} lg={8}>
+      <Grid item xs={12} md={6} lg={6}>
         <Transactions />
+      </Grid>
+      <Grid item xs={12} md={2}>
+        <Award 
+          icons='ri-user-line'
+          number='3809'
+          title= 'Patients'
+          color='#0573b8'
+          bg='#e3eefd'
+        />
+      </Grid>
+      <Grid item xs={12} md={2}>
+        <Award 
+        icons='ri-lungs-line'
+        number='3809'
+        title= 'Surgeries'
+        color='#ff5a39'
+        bg='#ffefec'/>
+      </Grid>
+      <Grid item xs={12} md={2}>
+        <Award 
+        icons='ri-money-dollar-circle-line'
+        number='3809'
+        title= 'Earnings'
+        color='#0ebb13'
+        bg='#e9fdea'/>
       </Grid>
       <Grid item xs={12} md={6} lg={4}>
         <WeeklyOverview />

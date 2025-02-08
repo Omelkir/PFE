@@ -19,13 +19,13 @@ import styles from './styles.module.css'
 const TooltipContent = () => {
   return (
     <Card>
-      <a href='https://themeselection.com/item/materio-mui-nextjs-admin-template' target='_blank' className='flex'>
+      {/* <a href='https://themeselection.com/item/materio-mui-nextjs-admin-template' target='_blank' className='flex'>
         <img
           src='https://cdn.themeselection.com/ts-assets/materio/materio-mui-nextjs-admin-template/banner/banner.png'
           alt='Upgrade to Pro'
           className='w-full'
         />
-      </a>
+      </a> */}
       <CardHeader title={`${themeConfig.templateName} - MUI Next.js Admin Template`} />
       <CardContent>
         <Typography color='textSecondary' className='mbe-4'>

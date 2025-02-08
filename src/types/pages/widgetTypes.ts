@@ -15,3 +15,10 @@ export type CardStatsVerticalProps = {
   avatarSize?: number
   moreOptions?: OptionsMenuType
 }
+export type CardStatsProps = {
+  icons: string
+  number: string
+  title: string
+  color: string
+  bg:string
+}

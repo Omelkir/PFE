@@ -111,3 +111,56 @@ code {
   background-color: rgb(var(--mui-palette-info-mainChannel) / 0.08);
   border: 0;
 }
+.bg{
+  background-image: url("/images/pages/banner.svg");
+  background-size: cover;
+  background-position: right;
+  background-position-x: right;
+  background-position-y: center;
+}
+.text-white {
+  --text-opacity: 1;
+  --white-rgb: 255, 255, 255;
+  --text-opacity: 1;
+  color: rgba(var(--white-rgb), var(--text-opacity)) !important;
+  font-weight: bold;
+  font-size: large;
+  line-height: 2;
+}
+.text {
+  --text-opacity: 1;
+  --white-rgb: 255, 255, 255;
+  --text-opacity: 1;
+  color: rgba(var(--white-rgb), var(--text-opacity)) !important;
+}
+.bg-arctic {
+  background: #1ec5f9;
+}
+.lg {
+  width: 4rem;
+  height: 4rem;
+  text-align: center;
+  padding-top:10px;
+  
+}
+.rounded {
+  border-radius: 10px !important;
+}
+.icon{
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+}
+.icon-box {
+  display: flex;               
+  justify-content: center;    
+  align-items: center;
+  border-radius: 30px;
+  width: 5rem;
+  height: 5rem;
+  margin: auto;
+}
+.centerCard{
+  display: flex;               
+  justify-content: center;    
+  align-items: center;
+}
