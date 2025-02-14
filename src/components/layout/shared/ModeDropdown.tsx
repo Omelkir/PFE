@@ -48,7 +48,7 @@ const ModeDropdown = () => {
         PopperProps={{ className: 'capitalize' }}
       >
         <IconButton ref={anchorRef} onClick={handleToggle} className='text-textPrimary'>
-          <i className={getModeIcon()} />
+          <i className={getModeIcon()} style={{ color: 'white', fontSize: '30px' }} />
         </IconButton>
       </Tooltip>
     </>

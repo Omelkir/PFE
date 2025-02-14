@@ -20,7 +20,7 @@ import OptionsMenu from '@core/components/option-menu'
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
-const WeeklyOverview = () => {
+const AppointmentChart = () => {
   // Hooks
   const theme = useTheme()
 
@@ -52,14 +52,7 @@ const WeeklyOverview = () => {
       borderColor: divider
     },
     dataLabels: { enabled: false },
-    colors: [
-      'var(--mui-palette-customColors-trackBg)',
-      'var(--mui-palette-customColors-trackBg)',
-      'var(--mui-palette-customColors-trackBg)',
-      'var(--mui-palette-primary-main)',
-      'var(--mui-palette-customColors-trackBg)',
-      'var(--mui-palette-customColors-trackBg)'
-    ],
+    colors: ['#f9e79f', '#f9e79f', '#f9e79f', 'var(--mui-palette-warning-main)', '#f9e79f', '#f9e79f'],
     states: {
       hover: {
         filter: { type: 'none' }
@@ -69,9 +62,9 @@ const WeeklyOverview = () => {
       }
     },
     xaxis: {
-      categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       tickPlacement: 'on',
-      labels: { show: false },
+      labels: { show: true },
       axisTicks: { show: false },
       axisBorder: { show: false }
     },
@@ -90,27 +83,25 @@ const WeeklyOverview = () => {
   return (
     <Card>
       <CardHeader
-        title='Weekly Overview'
+        title={<span style={{ fontSize: 20, fontWeight: 'bold', color: '#ffb400' }}>Appointments</span>}
         action={<OptionsMenu iconClassName='text-textPrimary' options={['Refresh', 'Update', 'Delete']} />}
       />
-      <CardContent sx={{ '& .apexcharts-xcrosshairs.apexcharts-active': { opacity: 0 } }}>
+
+      <CardContent sx={{ '& .apexcharts-xcrosshairs.apexcharts-active': { opacity: 0 } }} style={{ paddingTop: 20 }}>
         <AppReactApexCharts
           type='bar'
-          height={206}
+          height={300}
           width='100%'
-          series={[{ name: 'Sales', data: [37, 57, 45, 75, 57, 40, 65] }]}
+          series={[{ name: 'Appointments', data: [30, 40, 35, 50, 49, 60, 70, 80, 75, 90, 85, 95] }]}
           options={options}
         />
         <div className='flex items-center mbe-4 gap-4'>
-          <Typography variant='h4'>45%</Typography>
-          <Typography>Your sales performance is 45% 😎 better compared to last month</Typography>
+          <Typography variant='h4'>33%</Typography>
+          <Typography>Your appointments are 33% higher than last year</Typography>
         </div>
-        <Button fullWidth variant='contained'>
-          Details
-        </Button>
       </CardContent>
     </Card>
   )
 }
 
-export default WeeklyOverview
+export default AppointmentChart

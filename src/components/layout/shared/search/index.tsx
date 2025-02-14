@@ -12,14 +12,16 @@ const NavSearch = () => {
 
   return isBreakpointReached ? (
     <IconButton className='text-textPrimary'>
-      <i className='ri-search-line' />
+      <i className='ri-search-line' style={{ color: 'white', fontSize: '25px' }} />
     </IconButton>
   ) : (
     <div className='flex items-center cursor-pointer gap-2'>
       <IconButton className='text-textPrimary'>
-        <i className='ri-search-line' />
+        <i className='ri-search-line' style={{ color: 'white', fontSize: '25px' }} />
       </IconButton>
-      <div className='whitespace-nowrap select-none text-textDisabled'>Search ⌘K</div>
+      <div className='whitespace-nowrap select-none text-textDisabled' style={{ color: 'white', fontSize: '15px' }}>
+        Search ⌘K
+      </div>
     </div>
   )
 }

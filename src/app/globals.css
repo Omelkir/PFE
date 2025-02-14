@@ -111,8 +111,15 @@ code {
   background-color: rgb(var(--mui-palette-info-mainChannel) / 0.08);
   border: 0;
 }
-.bg{
-  background-image: url("/images/pages/banner.svg");
+.bg {
+  background-image: url('/images/pages/banner.svg');
+  background-size: cover;
+  background-position: right;
+  background-position-x: right;
+  background-position-y: center;
+}
+.bgLogin {
+  background-image: url('/images/banner2.svg');
   background-size: cover;
   background-position: right;
   background-position-x: right;
@@ -140,27 +147,37 @@ code {
   width: 4rem;
   height: 4rem;
   text-align: center;
-  padding-top:10px;
-  
+  padding-top: 10px;
 }
 .rounded {
   border-radius: 10px !important;
 }
-.icon{
+.icon {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
 }
 .icon-box {
-  display: flex;               
-  justify-content: center;    
+  display: flex;
+  justify-content: center;
   align-items: center;
   border-radius: 30px;
-  width: 5rem;
-  height: 5rem;
+  width: 7rem;
+  height: 7rem;
   margin: auto;
 }
-.centerCard{
-  display: flex;               
-  justify-content: center;    
+.centerCard {
+  display: flex;
+  justify-content: center;
   align-items: center;
+}
+.isReq {
+  border: 1px solid red !important;
+  border-radius: 6px;
+  min-height: 60px;
+  margin-bottom: 10px;
+}
+.errmsg {
+  color: red;
+  font-size: 13px;
+  margin-left: 10px;
 }

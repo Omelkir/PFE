@@ -31,7 +31,32 @@ import { useImageVariant } from '@core/hooks/useImageVariant'
 const Register = ({ mode }: { mode: Mode }) => {
   // States
   const [isPasswordShown, setIsPasswordShown] = useState(false)
+  const [email, setEmail] = useState<string>('')
+  const [mdp, setMdp] = useState<string>('')
+  const [nom, setNom] = useState<string>('')
+  const [controls, setControls] = useState<any>({
+    email: false,
+    mdp: false,
+    nom: false
+  })
+  async function handleSave() {
+    try {
+      const areAllValuesFalse = (controls: any) => {
+        return Object.values(controls).every(value => value === false)
+      }
 
+      setControls({
+        nom: nom?.trim() === '' || nom === null,
+        email: email?.trim() === '' || email === null,
+        mdp: mdp?.trim() === '' || mdp === null
+      })
+      const canGo: boolean = areAllValuesFalse({
+        nom: nom?.trim() === '' || nom === null,
+        email: email?.trim() === '' || email === null,
+        pass: mdp?.trim() === '' || mdp === null
+      })
+    } catch {}
+  }
   // Vars
   const darkImg = '/images/pages/auth-v1-mask-dark.png'
   const lightImg = '/images/pages/auth-v1-mask-light.png'
@@ -41,78 +66,234 @@ const Register = ({ mode }: { mode: Mode }) => {
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
 
+  // return (
+  //   <div className='flex flex-col justify-center items-center min-bs-[100dvh] relative p-6'>
+  //     <Card className='flex flex-col sm:is-[450px]'>
+  //       <CardContent className='p-6 sm:!p-12'>
+  //         <Link href='/' className='flex justify-center items-start mbe-6'>
+  //           <Logo />
+  //         </Link>
+  //         <Typography variant='h4'>Adventure starts here 🚀</Typography>
+  //         <div className='flex flex-col gap-5'>
+  //           <Typography className='mbs-1'>Make your app management easy and fun!</Typography>
+  //           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} className='flex flex-col gap-5'>
+  //             <TextField autoFocus fullWidth label='Username' />
+  //             <TextField fullWidth label='Email' />
+  //             <TextField
+  //               fullWidth
+  //               label='Password'
+  //               type={isPasswordShown ? 'text' : 'password'}
+  //               InputProps={{
+  //                 endAdornment: (
+  //                   <InputAdornment position='end'>
+  //                     <IconButton
+  //                       size='small'
+  //                       edge='end'
+  //                       onClick={handleClickShowPassword}
+  //                       onMouseDown={e => e.preventDefault()}
+  //                     >
+  //                       <i className={isPasswordShown ? 'ri-eye-off-line' : 'ri-eye-line'} />
+  //                     </IconButton>
+  //                   </InputAdornment>
+  //                 )
+  //               }}
+  //             />
+  //             <FormControlLabel
+  //               control={<Checkbox />}
+  //               label={
+  //                 <>
+  //                   <span>I agree to </span>
+  //                   <Link className='text-primary' href='/' onClick={e => e.preventDefault()}>
+  //                     privacy policy & terms
+  //                   </Link>
+  //                 </>
+  //               }
+  //             />
+  //             <Button fullWidth variant='contained' type='submit'>
+  //               Sign Up
+  //             </Button>
+  //             <div className='flex justify-center items-center flex-wrap gap-2'>
+  //               <Typography>Already have an account?</Typography>
+  //               <Typography component={Link} href='/login' color='primary'>
+  //                 Sign in instead
+  //               </Typography>
+  //             </div>
+  //             <Divider className='gap-3'>Or</Divider>
+  //             <div className='flex justify-center items-center gap-2'>
+  //               <IconButton size='small' className='text-facebook'>
+  //                 <i className='ri-facebook-fill' />
+  //               </IconButton>
+  //               <IconButton size='small' className='text-twitter'>
+  //                 <i className='ri-twitter-fill' />
+  //               </IconButton>
+  //               <IconButton size='small' className='text-github'>
+  //                 <i className='ri-github-fill' />
+  //               </IconButton>
+  //               <IconButton size='small' className='text-googlePlus'>
+  //                 <i className='ri-google-fill' />
+  //               </IconButton>
+  //             </div>
+  //           </form>
+  //         </div>
+  //       </CardContent>
+  //     </Card>
+  //     <Illustrations maskImg={{ src: authBackground }} />
+  //   </div>
+  // )
   return (
-    <div className='flex flex-col justify-center items-center min-bs-[100dvh] relative p-6'>
-      <Card className='flex flex-col sm:is-[450px]'>
-        <CardContent className='p-6 sm:!p-12'>
-          <Link href='/' className='flex justify-center items-start mbe-6'>
-            <Logo />
-          </Link>
-          <Typography variant='h4'>Adventure starts here 🚀</Typography>
-          <div className='flex flex-col gap-5'>
-            <Typography className='mbs-1'>Make your app management easy and fun!</Typography>
-            <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} className='flex flex-col gap-5'>
-              <TextField autoFocus fullWidth label='Username' />
-              <TextField fullWidth label='Email' />
-              <TextField
-                fullWidth
-                label='Password'
-                type={isPasswordShown ? 'text' : 'password'}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position='end'>
-                      <IconButton
-                        size='small'
-                        edge='end'
-                        onClick={handleClickShowPassword}
-                        onMouseDown={e => e.preventDefault()}
-                      >
-                        <i className={isPasswordShown ? 'ri-eye-off-line' : 'ri-eye-line'} />
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label={
-                  <>
-                    <span>I agree to </span>
-                    <Link className='text-primary' href='/' onClick={e => e.preventDefault()}>
-                      privacy policy & terms
-                    </Link>
-                  </>
+    <div className='flex flex-col lg:flex-row min-h-screen items-center justify-center relative h-screen w-screen bg-white'>
+      <div className='hidden lg:flex flex-1 justify-center items-center min-h-screen bg-gray-100'>
+        <span className='absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:inline-start-[38px]'>
+          <Logo />
+        </span>
+        <img src='/images/pages/doc2.svg' className='max-w-[800px]' />
+      </div>
+
+      {/* Formulaire */}
+      <div className='flex flex-col justify-center items-center w-full max-w-xl p-12 min-h-screen space-y-6'>
+        <div className='mb-5'>
+          <h3 className='text-3xl font-bold mb-3'>Adventure starts here 🚀</h3>
+          <Typography className='mbs-1 text-lg '>Make your app management easy and fun!</Typography>
+        </div>
+        <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} className='w-full space-y-6 mt-8'>
+          <div>
+            <TextField
+              fullWidth
+              label='Username'
+              className={`${controls?.nom === true ? 'isReq' : ''}`}
+              onChange={(e: any) => {
+                if (e.target?.value.trim() === '') {
+                  setControls({ ...controls, nom: true })
+                  setNom('')
+                } else {
+                  setControls({ ...controls, nom: false })
+                  setNom(e.target.value)
                 }
-              />
-              <Button fullWidth variant='contained' type='submit'>
-                Sign Up
-              </Button>
-              <div className='flex justify-center items-center flex-wrap gap-2'>
-                <Typography>Already have an account?</Typography>
-                <Typography component={Link} href='/login' color='primary'>
-                  Sign in instead
-                </Typography>
-              </div>
-              <Divider className='gap-3'>Or</Divider>
-              <div className='flex justify-center items-center gap-2'>
-                <IconButton size='small' className='text-facebook'>
-                  <i className='ri-facebook-fill' />
-                </IconButton>
-                <IconButton size='small' className='text-twitter'>
-                  <i className='ri-twitter-fill' />
-                </IconButton>
-                <IconButton size='small' className='text-github'>
-                  <i className='ri-github-fill' />
-                </IconButton>
-                <IconButton size='small' className='text-googlePlus'>
-                  <i className='ri-google-fill' />
-                </IconButton>
-              </div>
-            </form>
+              }}
+              autoFocus
+              InputLabelProps={{
+                sx: { fontSize: '1rem' }
+              }}
+              InputProps={{
+                sx: {
+                  height: 60,
+                  '&.Mui-focused': {
+                    '& + .MuiInputLabel-root': {
+                      fontSize: '1rem'
+                    }
+                  }
+                }
+              }}
+            />
+            {controls?.nom === true ? <span className='errmsg'>Please enter the name !</span> : null}
           </div>
-        </CardContent>
-      </Card>
-      <Illustrations maskImg={{ src: authBackground }} />
+          <div>
+            <TextField
+              fullWidth
+              label='Email'
+              InputLabelProps={{
+                sx: { fontSize: '1rem' }
+              }}
+              InputProps={{
+                sx: {
+                  height: 60,
+                  '&.Mui-focused': {
+                    '& + .MuiInputLabel-root': {
+                      fontSize: '1rem'
+                    }
+                  }
+                }
+              }}
+              className={`${controls?.email === true ? 'isReq' : ''}`}
+              onChange={(e: any) => {
+                if (e.target?.value.trim() === '') {
+                  setControls({ ...controls, email: true })
+                  setEmail('')
+                } else {
+                  setControls({ ...controls, email: false })
+                  setEmail(e.target.value)
+                }
+              }}
+            />
+            {controls?.email === true ? <span className='errmsg'>Please enter the email !</span> : null}
+          </div>
+          <div>
+            <TextField
+              fullWidth
+              label='Password'
+              type={isPasswordShown ? 'text' : 'password'}
+              InputLabelProps={{
+                sx: { fontSize: '1rem' }
+              }}
+              className={`${controls?.mdp === true ? 'isReq' : ''}`}
+              InputProps={{
+                sx: {
+                  height: 60,
+                  '&.Mui-focused': {
+                    '& + .MuiInputLabel-root': {
+                      fontSize: '1rem'
+                    }
+                  },
+                  paddingRight: 5
+                },
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton
+                      size='large'
+                      edge='end'
+                      onClick={handleClickShowPassword}
+                      onMouseDown={e => e.preventDefault()}
+                    >
+                      <i className={isPasswordShown ? 'ri-eye-off-line' : 'ri-eye-line'} />
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+              onChange={(e: any) => {
+                if (e.target?.value.trim() === '') {
+                  setControls({ ...controls, mdp: true })
+                  setMdp('')
+                } else {
+                  setControls({ ...controls, mdp: false })
+                  setMdp(e.target.value)
+                }
+              }}
+            />
+            {controls?.mdp === true ? <span className='errmsg'>Please enter the password !</span> : null}
+          </div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label={
+              <>
+                <span>I agree to </span>
+                <Link className='text-primary' href='/' onClick={e => e.preventDefault()}>
+                  privacy policy & terms
+                </Link>
+              </>
+            }
+          />
+          <Button
+            fullWidth
+            variant='contained'
+            type='submit'
+            sx={{
+              height: 40,
+              fontSize: '1rem'
+            }}
+            onClick={() => {
+              handleSave()
+            }}
+          >
+            Sign Up
+          </Button>
+          <div className='flex justify-center items-center flex-wrap gap-2'>
+            <Typography>Already have an account?</Typography>
+            <Typography component={Link} href='/login' color='primary'>
+              Sign in instead
+            </Typography>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

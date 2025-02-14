@@ -6,8 +6,8 @@ import Button from '@mui/material/Button'
 import { Grid } from '@mui/material'
 import { CardStatsProps } from '@/types/pages/widgetTypes'
 
-const Award = (props:CardStatsProps) => {
-  const { icons,number,title,color,bg} =props
+const Award = (props: CardStatsProps) => {
+  const { icons, number, title, color, bg } = props
   return (
     // <Card>
     //   <CardContent className='flex flex-col gap-2 relative items-start'>
@@ -33,19 +33,22 @@ const Award = (props:CardStatsProps) => {
     //   </CardContent>
     // </Card>
     <Card>
-    <CardContent>
-    
-        <div className='icon-box' style={{ backgroundColor: bg}}>
-        <i className={icons} style={{color:color,fontSize:'50px'}}/>
+      <CardContent sx={{ height: '280px', paddingTop: '40px' }}>
+        <div className='icon-box' style={{ backgroundColor: bg }}>
+          <i className={icons} style={{ color: color, fontSize: '60px' }} />
         </div>
         <div className='centerCard'>
-        <Typography variant='h5' style={{fontSize:30,fontWeight:'bold',color:color,marginTop:10}}>{number}</Typography>
+          <Typography variant='h5' style={{ fontSize: 30, fontWeight: 'bold', color: color, marginTop: 10 }}>
+            {number}
+          </Typography>
         </div>
         <div className='centerCard'>
-        <Typography variant='h5' style={{fontWeight:'bold',marginTop:10}}>{title}</Typography>
+          <Typography variant='h5' style={{ fontWeight: 'bold', marginTop: 10 }}>
+            {title}
+          </Typography>
         </div>
-    </CardContent>
-  </Card>
+      </CardContent>
+    </Card>
   )
 }
 

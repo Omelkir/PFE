@@ -12,45 +12,40 @@ import DepositWithdraw from '@views/dashboard/DepositWithdraw'
 import SalesByCountries from '@views/dashboard/SalesByCountries'
 import CardStatVertical from '@components/card-statistics/Vertical'
 import Table from '@views/dashboard/Table'
+import ConsultationChart from '@/views/dashboard/PatientChart'
+import { BarChart } from 'recharts'
+import PatientChart from '@/views/dashboard/PatientChart'
+import AppointmentChart from '@/views/dashboard/AppointmentChart'
+import PatientsTypeChart from '@/views/dashboard/PatientsType'
 
 const DashboardAnalytics = () => {
   return (
     <Grid container spacing={6}>
-      <Grid item xs={12} md={6} lg={6}>
+      <Grid item xs={12} md={8} lg={6} sx={{ height: '300px' }}>
         <Transactions />
       </Grid>
       <Grid item xs={12} md={2}>
-        <Award 
-          icons='ri-user-line'
-          number='3809'
-          title= 'Patients'
-          color='#0573b8'
-          bg='#e3eefd'
-        />
+        <Award icons='ri-user-line' number='3809' title='Patients' color='#0573b8' bg='#e3eefd' />
       </Grid>
       <Grid item xs={12} md={2}>
-        <Award 
-        icons='ri-lungs-line'
-        number='3809'
-        title= 'Surgeries'
-        color='#ff5a39'
-        bg='#ffefec'/>
+        <Award icons='ri-lungs-line' number='906' title='Surgeries' color='#ff5a39' bg='#ffefec' />
       </Grid>
       <Grid item xs={12} md={2}>
-        <Award 
-        icons='ri-money-dollar-circle-line'
-        number='3809'
-        title= 'Earnings'
-        color='#0ebb13'
-        bg='#e9fdea'/>
+        <Award icons='ri-money-dollar-circle-line' number='$986K' title='Earnings' color='#0ebb13' bg='#e9fdea' />
       </Grid>
-      <Grid item xs={12} md={6} lg={4}>
-        <WeeklyOverview />
+      <Grid item xs={12} md={6} lg={6}>
+        <PatientChart />
       </Grid>
-      <Grid item xs={12} md={6} lg={4}>
+      <Grid item xs={12} md={6} lg={6}>
+        <AppointmentChart />
+      </Grid>
+      {/* <Grid item xs={12} md={6} lg={4}>
+        <PatientsTypeChart />
+      </Grid> */}
+      {/* <Grid item xs={12} md={6} lg={4}>
         <TotalEarning />
-      </Grid>
-      <Grid item xs={12} md={6} lg={4}>
+      </Grid> */}
+      {/* <Grid item xs={12} md={6} lg={4}>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={6}>
             <LineChart />
@@ -84,10 +79,10 @@ const DashboardAnalytics = () => {
       </Grid>
       <Grid item xs={12} md={6} lg={4}>
         <SalesByCountries />
-      </Grid>
-      <Grid item xs={12} lg={8}>
+      </Grid> */}
+      {/* <Grid item xs={12} lg={8}>
         <DepositWithdraw />
-      </Grid>
+      </Grid> */}
       <Grid item xs={12}>
         <Table />
       </Grid>

@@ -14,7 +14,6 @@ import CustomAvatar from '@core/components/mui/Avatar'
 import CardStatVertical from '@/components/card-statistics/Vertical'
 import { red } from '@mui/material/colors'
 
-
 type DataType = {
   icon: string
   stats: string
@@ -53,11 +52,10 @@ const data: DataType[] = [
 const Transactions = () => {
   return (
     <Card className='bs-full bg'>
-
-      <div className='pt-8 pl-8 text-white'>
-      <h5>Good Morning</h5>
-      <h2>Dr. Omelkhir Rebei</h2>
-      {/* <h4>Your Shedule today</h4> */}
+      <div className='pt-12 pl-8 text-white'>
+        <h5>Good Morning</h5>
+        <h2>Dr. Omelkhir Rebei</h2>
+        {/* <h4>Your Shedule today</h4> */}
       </div>
 
       {/* <div className='pl-8 pt-8'> 
@@ -120,7 +118,6 @@ const Transactions = () => {
         </Grid>
       </CardContent> */}
     </Card>
-    
   )
 }
 
