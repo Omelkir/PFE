@@ -20,6 +20,7 @@ import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
+import { deleteStorageData } from '@/utils/helpers'
 
 // Styled component for badge content
 const BadgeContentSpan = styled('span')({
@@ -46,9 +47,9 @@ const UserDropdown = () => {
   }
 
   const handleDropdownClose = (event?: MouseEvent<HTMLLIElement> | (MouseEvent | TouchEvent), url?: string) => {
-    if (url) {
-      router.push(url)
-    }
+    deleteStorageData()
+
+    router.push('/login')
 
     if (anchorRef.current && anchorRef.current.contains(event?.target as HTMLElement)) {
       return

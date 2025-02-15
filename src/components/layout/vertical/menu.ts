@@ -1,49 +1,32 @@
-const menu: any = [
+export const menuMed = [
   {
-    label: 'Dashboard',
+    label: 'Dashboard Med',
+    path: '/',
+    icon: 'ri-dashboard-fill'
+  }
+]
+export const menulabo = [
+  {
+    label: 'Dashboard Labo',
+    path: '/',
+    icon: 'ri-dashboard-fill'
+  }
+]
+export const menuAdmin = [
+  {
+    label: 'Dashboard admin',
     path: '/',
     icon: 'ri-dashboard-fill'
   },
   {
-    label: 'Patient',
-    path: '/cc',
+    label: 'patient',
+    path: '/patient',
     icon: 'ri-user-fill',
     subMenu: [
       { label: 'Historique médical', path: '/cal', icon: 'ri-history-fill' },
-      {
-        label: 'Ordonnances',
-        path: '/de',
-        icon: 'ri-file-line'
-      }
+      { label: 'Ordonnances', path: '/de', icon: 'ri-file-line' },
+      { label: 'patient', path: '/patient', icon: 'ri-file-line' }
     ]
-  },
-  {
-    label: 'Rendez-vous',
-    path: '/ren',
-    icon: 'ri-time-fill',
-    subMenu: [
-      { label: 'Calendrier', path: '/cal', icon: 'ri-calendar-fill' },
-      {
-        label: 'Demandes de rendez-vous',
-        path: '/de',
-        icon: 'ri-file-list-fill'
-      }
-    ]
-  },
-  {
-    label: 'Rapport',
-    path: '/ren',
-    icon: 'ri-file-fill'
-  },
-  {
-    label: 'Paramètres & Profil',
-    path: '/ren',
-    icon: 'ri-settings-fill'
-  },
-  {
-    label: 'Déconnexion',
-    path: '/ren',
-    icon: 'ri-logout-circle-line'
   }
+  // Autres éléments du menu
 ]
-export default menu

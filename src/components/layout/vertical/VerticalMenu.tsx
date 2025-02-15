@@ -20,7 +20,8 @@ import StyledVerticalNavExpandIcon from '@menu/styles/vertical/StyledVerticalNav
 // Style Imports
 import menuItemStyles from '@core/styles/vertical/menuItemStyles'
 import menuSectionStyles from '@core/styles/vertical/menuSectionStyles'
-import menu from './menu'
+import { menuAdmin, menuMed, menulabo } from './menu'
+import { getStorageData } from '@/utils/helpers'
 
 type RenderExpandIconProps = {
   open?: boolean
@@ -32,7 +33,7 @@ const RenderExpandIcon = ({ open, transitionDuration }: RenderExpandIconProps) =
     <i className='ri-arrow-right-s-line' />
   </StyledVerticalNavExpandIcon>
 )
-
+const typeOfLogger: any = getStorageData('typeOfLogger')
 const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectScrollbar: boolean) => void }) => {
   // Hooks
   const theme = useTheme()
@@ -77,7 +78,11 @@ const VerticalMenu = ({ scrollMenu }: { scrollMenu: (container: any, isPerfectSc
         renderExpandedMenuItemIcon={{ icon: <i className='ri-circle-line' /> }}
         menuSectionStyles={menuSectionStyles(theme)}
       >
-        <MenuSection label={null}>{renderMenu(menu)}</MenuSection>
+        <MenuSection label={null}>
+          {renderMenu(
+            typeOfLogger === 1 ? menuAdmin : typeOfLogger === 2 ? menuMed : typeOfLogger === 3 ? menulabo : []
+          )}
+        </MenuSection>
       </Menu>
     </ScrollWrapper>
   )

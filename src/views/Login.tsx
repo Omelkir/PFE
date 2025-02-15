@@ -33,29 +33,44 @@ import themeConfig from '@configs/themeConfig'
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant'
 import { Box } from '@mui/material'
+import { getStorageData, setStorageData } from '@/utils/helpers'
 
 const Login = ({ mode }: { mode: Mode }) => {
+  const router = useRouter()
+  const isLogged: any =
+    getStorageData('typeOfLogger') !== -1 &&
+    getStorageData('typeOfLogger') !== null &&
+    getStorageData('typeOfLogger') !== undefined
+
+  if (isLogged) {
+    router.push('/')
+  }
   // States
   const [isPasswordShown, setIsPasswordShown] = useState(false)
   const [email, setEmail] = useState<string>('')
   const [mdp, setMdp] = useState<string>('')
+  const [typeOfLogger, setTypeOfLogger] = useState<number>(-1)
   const [controls, setControls] = useState<any>({
     email: false,
     mdp: false
   })
   async function handleSave() {
     try {
-      const areAllValuesFalse = (controls: any) => {
-        return Object.values(controls).every(value => value === false)
+      setControls((prev: any) => ({ ...prev, email: email?.trim() === '' }))
+      setControls((prev: any) => ({ ...prev, mdp: mdp?.trim() === '' }))
+
+      if (email === 'admin' && mdp === 'admin') {
+        setStorageData('typeOfLogger', 1)
+        router.push('/')
+      } else if (email === 'med' && mdp === 'med') {
+        setStorageData('typeOfLogger', 2)
+        router.push('/')
+      } else if (email === 'labo' && mdp === 'labo') {
+        setStorageData('typeOfLogger', 3)
+        router.push('/')
+      } else {
+        setTypeOfLogger(0)
       }
-      setControls({
-        email: email?.trim() === '' || email === null,
-        mdp: mdp?.trim() === '' || mdp === null
-      })
-      const canGo: boolean = areAllValuesFalse({
-        email: email?.trim() === '' || email === null,
-        pass: mdp?.trim() === '' || mdp === null
-      })
     } catch {}
   }
 
@@ -64,7 +79,7 @@ const Login = ({ mode }: { mode: Mode }) => {
   const lightImg = '/images/pages/auth-v1-mask-light.png'
 
   // Hooks
-  const router = useRouter()
+
   const authBackground = useImageVariant(mode, lightImg, darkImg)
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
@@ -192,7 +207,7 @@ const Login = ({ mode }: { mode: Mode }) => {
                 }
               }}
             />
-            {controls?.email === true ? <span className='errmsg'>Please enter the email !</span> : null}
+            {controls.email === true ? <span className='errmsg'>Please enter the email !</span> : null}
           </div>
           <div>
             <TextField
@@ -239,6 +254,7 @@ const Login = ({ mode }: { mode: Mode }) => {
             />
             {controls?.mdp === true ? <span className='errmsg'>Please enter the password !</span> : null}
           </div>
+          {typeOfLogger === -1 ? <span className='errmsg'>Please enter the password !</span> : null}
           <Box
             className='flex justify-between items-center'
             sx={{
