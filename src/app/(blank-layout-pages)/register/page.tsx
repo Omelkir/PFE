@@ -1,14 +1,14 @@
-// Component Imports
+'use client'
+
+import { useState } from 'react'
+
 import Register from '@views/Register'
 
-// Server Action Imports
-import { getServerMode } from '@core/utils/serverHelpers'
-
 const RegisterPage = () => {
-  // Vars
-  const mode = getServerMode()
+  const [update, setUpdate] = useState<string>('')
+  const [dataForm, setDataForm] = useState<any>({})
 
-  return <Register mode={mode} />
+  return <Register />
 }
 
 export default RegisterPage

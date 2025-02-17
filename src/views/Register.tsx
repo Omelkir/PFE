@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Next Imports
 import Link from 'next/link'
@@ -27,119 +27,79 @@ import Logo from '@components/layout/shared/Logo'
 
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant'
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
-const Register = ({ mode }: { mode: Mode }) => {
+const Register = () => {
   // States
   const [isPasswordShown, setIsPasswordShown] = useState(false)
-  const [email, setEmail] = useState<string>('')
-  const [mdp, setMdp] = useState<string>('')
-  const [nom, setNom] = useState<string>('')
+
+  const [data, setData] = useState<any>({ email: '', mdp: '', role: '', nom: '', spe: 0 })
+
   const [controls, setControls] = useState<any>({
     email: false,
     mdp: false,
-    nom: false
+    nom: false,
+    role: false,
+    spe: 0
   })
+  const options = [
+    { label: 'Admin', value: 1 },
+    { label: 'Médecin', value: 2 },
+    { label: 'Laboratoire', value: 3 }
+  ]
+  const optionsMed = [
+    { label: 'SP1', value: 1 },
+    { label: 'SP2', value: 2 },
+    { label: 'SP3', value: 3 }
+  ]
+  const clearForm = () => {
+    setData({ email: '', mdp: '', role: '', nom: '' })
+    setControls(false)
+  }
+  // useEffect(() => {
+  //   if (data) {
+  //     clearForm()
+  //     setId(data.id)
+  //     setEmail(data.email)
+  //     setMdp(data.mdp)
+  //     setNom(data.nom)
+  //   } else {
+  //     clearForm()
+  //   }
+  // }, [data])
+
   async function handleSave() {
     try {
-      const areAllValuesFalse = (controls: any) => {
-        return Object.values(controls).every(value => value === false)
-      }
+      setControls((prev: any) => ({ ...prev, email: data.email?.trim() === '' }))
+      setControls((prev: any) => ({ ...prev, mdp: data.mdp?.trim() === '' }))
+      setControls((prev: any) => ({ ...prev, nom: data.nom?.trim() === '' }))
+      setControls((prev: any) => ({ ...prev, role: data.role === '' }))
+      const url = `${window.location.origin}/api/register/ajouter`
+      const requestBody: any = JSON.stringify(data)
 
-      setControls({
-        nom: nom?.trim() === '' || nom === null,
-        email: email?.trim() === '' || email === null,
-        mdp: mdp?.trim() === '' || mdp === null
-      })
-      const canGo: boolean = areAllValuesFalse({
-        nom: nom?.trim() === '' || nom === null,
-        email: email?.trim() === '' || email === null,
-        pass: mdp?.trim() === '' || mdp === null
-      })
-    } catch {}
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: requestBody
+      }
+      await fetch(url, requestOptions)
+        .then(response => response.json())
+        .then(data => setData(data))
+      // console.log('ajouter')
+
+      clearForm()
+    } catch {
+      console.log('erreur')
+    }
   }
   // Vars
   const darkImg = '/images/pages/auth-v1-mask-dark.png'
   const lightImg = '/images/pages/auth-v1-mask-light.png'
 
   // Hooks
-  const authBackground = useImageVariant(mode, lightImg, darkImg)
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
 
-  // return (
-  //   <div className='flex flex-col justify-center items-center min-bs-[100dvh] relative p-6'>
-  //     <Card className='flex flex-col sm:is-[450px]'>
-  //       <CardContent className='p-6 sm:!p-12'>
-  //         <Link href='/' className='flex justify-center items-start mbe-6'>
-  //           <Logo />
-  //         </Link>
-  //         <Typography variant='h4'>Adventure starts here 🚀</Typography>
-  //         <div className='flex flex-col gap-5'>
-  //           <Typography className='mbs-1'>Make your app management easy and fun!</Typography>
-  //           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} className='flex flex-col gap-5'>
-  //             <TextField autoFocus fullWidth label='Username' />
-  //             <TextField fullWidth label='Email' />
-  //             <TextField
-  //               fullWidth
-  //               label='Password'
-  //               type={isPasswordShown ? 'text' : 'password'}
-  //               InputProps={{
-  //                 endAdornment: (
-  //                   <InputAdornment position='end'>
-  //                     <IconButton
-  //                       size='small'
-  //                       edge='end'
-  //                       onClick={handleClickShowPassword}
-  //                       onMouseDown={e => e.preventDefault()}
-  //                     >
-  //                       <i className={isPasswordShown ? 'ri-eye-off-line' : 'ri-eye-line'} />
-  //                     </IconButton>
-  //                   </InputAdornment>
-  //                 )
-  //               }}
-  //             />
-  //             <FormControlLabel
-  //               control={<Checkbox />}
-  //               label={
-  //                 <>
-  //                   <span>I agree to </span>
-  //                   <Link className='text-primary' href='/' onClick={e => e.preventDefault()}>
-  //                     privacy policy & terms
-  //                   </Link>
-  //                 </>
-  //               }
-  //             />
-  //             <Button fullWidth variant='contained' type='submit'>
-  //               Sign Up
-  //             </Button>
-  //             <div className='flex justify-center items-center flex-wrap gap-2'>
-  //               <Typography>Already have an account?</Typography>
-  //               <Typography component={Link} href='/login' color='primary'>
-  //                 Sign in instead
-  //               </Typography>
-  //             </div>
-  //             <Divider className='gap-3'>Or</Divider>
-  //             <div className='flex justify-center items-center gap-2'>
-  //               <IconButton size='small' className='text-facebook'>
-  //                 <i className='ri-facebook-fill' />
-  //               </IconButton>
-  //               <IconButton size='small' className='text-twitter'>
-  //                 <i className='ri-twitter-fill' />
-  //               </IconButton>
-  //               <IconButton size='small' className='text-github'>
-  //                 <i className='ri-github-fill' />
-  //               </IconButton>
-  //               <IconButton size='small' className='text-googlePlus'>
-  //                 <i className='ri-google-fill' />
-  //               </IconButton>
-  //             </div>
-  //           </form>
-  //         </div>
-  //       </CardContent>
-  //     </Card>
-  //     <Illustrations maskImg={{ src: authBackground }} />
-  //   </div>
-  // )
   return (
     <div className='flex flex-col lg:flex-row min-h-screen items-center justify-center relative h-screen w-screen bg-white'>
       <div className='hidden lg:flex flex-1 justify-center items-center min-h-screen bg-gray-100'>
@@ -155,19 +115,26 @@ const Register = ({ mode }: { mode: Mode }) => {
           <h3 className='text-3xl font-bold mb-3'>Adventure starts here 🚀</h3>
           <Typography className='mbs-1 text-lg '>Make your app management easy and fun!</Typography>
         </div>
-        <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} className='w-full space-y-6 mt-8'>
+        <form noValidate autoComplete='off' className='w-full space-y-6 mt-8'>
           <div>
             <TextField
               fullWidth
               label='Username'
+              value={data.nom}
               className={`${controls?.nom === true ? 'isReq' : ''}`}
               onChange={(e: any) => {
                 if (e.target?.value.trim() === '') {
                   setControls({ ...controls, nom: true })
-                  setNom('')
+                  setData((prev: any) => ({
+                    ...prev,
+                    nom: e.target.value
+                  }))
                 } else {
                   setControls({ ...controls, nom: false })
-                  setNom(e.target.value)
+                  setData((prev: any) => ({
+                    ...prev,
+                    nom: e.target.value
+                  }))
                 }
               }}
               autoFocus
@@ -204,14 +171,21 @@ const Register = ({ mode }: { mode: Mode }) => {
                   }
                 }
               }}
+              value={data.email}
               className={`${controls?.email === true ? 'isReq' : ''}`}
               onChange={(e: any) => {
                 if (e.target?.value.trim() === '') {
                   setControls({ ...controls, email: true })
-                  setEmail('')
+                  setData((prev: any) => ({
+                    ...prev,
+                    email: e.target.value
+                  }))
                 } else {
                   setControls({ ...controls, email: false })
-                  setEmail(e.target.value)
+                  setData((prev: any) => ({
+                    ...prev,
+                    email: e.target.value
+                  }))
                 }
               }}
             />
@@ -252,15 +226,77 @@ const Register = ({ mode }: { mode: Mode }) => {
               onChange={(e: any) => {
                 if (e.target?.value.trim() === '') {
                   setControls({ ...controls, mdp: true })
-                  setMdp('')
+                  setData((prev: any) => ({
+                    ...prev,
+                    mdp: e.target.value
+                  }))
                 } else {
                   setControls({ ...controls, mdp: false })
-                  setMdp(e.target.value)
+                  setData((prev: any) => ({
+                    ...prev,
+                    mdp: e.target.value
+                  }))
                 }
               }}
             />
             {controls?.mdp === true ? <span className='errmsg'>Please enter the password !</span> : null}
           </div>
+          <div>
+            <FormControl fullWidth>
+              <InputLabel>Type</InputLabel>
+              <Select
+                className={`${controls?.role === true ? 'isReq' : ''}`}
+                value={data?.role || null}
+                onChange={(e: any) => {
+                  console.log(e)
+
+                  if (e === null) {
+                    setControls({ ...controls, role: true })
+                    setData((prev: any) => ({
+                      ...prev,
+                      role: e.target.value
+                    }))
+                  } else {
+                    setControls({ ...controls, role: false })
+                    setData((prev: any) => ({
+                      ...prev,
+                      role: e.target.value
+                    }))
+                  }
+                }}
+              >
+                {options.map(item => (
+                  <MenuItem value={item.value} key={item.value}>
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            {controls?.role === true ? <span className='errmsg'>Please enter the role !</span> : null}
+          </div>
+
+          <div style={{ display: data?.role !== 2 ? 'none' : '' }}>
+            <FormControl fullWidth>
+              <InputLabel>Spéciallité</InputLabel>
+              <Select
+                value={data?.spe || null}
+                onChange={(e: any) => {
+                  if (e === null) {
+                    setData({ ...data, spe: e.target.value })
+                  } else {
+                    setData({ ...data, spe: e.target.value })
+                  }
+                }}
+              >
+                {optionsMed.map(item => (
+                  <MenuItem value={item.value} key={item.value}>
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+
           <FormControlLabel
             control={<Checkbox />}
             label={
@@ -275,13 +311,13 @@ const Register = ({ mode }: { mode: Mode }) => {
           <Button
             fullWidth
             variant='contained'
-            type='submit'
+            type='button'
             sx={{
               height: 40,
               fontSize: '1rem'
             }}
             onClick={() => {
-              handleSave()
+              if (data.email?.trim() !== '') handleSave()
             }}
           >
             Sign Up
