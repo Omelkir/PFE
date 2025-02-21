@@ -10,10 +10,10 @@ const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const links = [
-    { href: '/home-page', label: 'Home' },
-    { href: '/about', label: 'About' },
-    { href: '/medecin', label: 'Médecins' },
-    { href: '/laboratoire', label: 'Laboratoires' }
+    { href: '/front-page/home-page', label: 'Home' },
+    { href: '#section2', label: 'About' },
+    { href: '/front-page/medecin', label: 'Médecins' },
+    { href: '/front-page/laboratoire', label: 'Laboratoires' }
   ]
 
   return (

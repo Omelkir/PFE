@@ -3,7 +3,7 @@ import { ajouter } from '@/app/api-controller/register'
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json() // Extraction du corps
+    const body = await req.json()
     const data = await ajouter(body)
 
     return NextResponse.json(data)

@@ -20,5 +20,9 @@ export type CardStatsProps = {
   number: string
   title: string
   color: string
-  bg:string
+  bg: string
+}
+export type CardArrow = {
+  title: string
+  subTitle: string
 }

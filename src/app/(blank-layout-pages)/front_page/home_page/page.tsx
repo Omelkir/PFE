@@ -1,10 +1,10 @@
 import { getServerMode } from '@core/utils/serverHelpers'
 import HomePage from './home'
 
-const Nav = () => {
+const Home = () => {
   const mode = getServerMode()
 
   return <HomePage />
 }
 
-export default Nav
+export default Home

@@ -19,14 +19,30 @@ export const menuAdmin = [
     icon: 'ri-dashboard-fill'
   },
   {
-    label: 'patient',
+    label: 'Médecin',
+    path: '/medecin',
+    icon: 'ri-stethoscope-fill'
+  },
+  {
+    label: 'Laboratoire',
+    path: '/laboratoire',
+    icon: 'ri-microscope-fill'
+  },
+  {
+    label: 'Admin',
+    path: '/admin',
+    icon: 'ri-vip-crown-fill'
+  },
+  {
+    label: 'Rendez-vous',
+    path: '/rendez-vous',
+    icon: 'ri-calendar-todo-line'
+  },
+  {
+    label: 'Patient',
     path: '/patient',
-    icon: 'ri-user-fill',
-    subMenu: [
-      { label: 'Historique médical', path: '/cal', icon: 'ri-history-fill' },
-      { label: 'Ordonnances', path: '/de', icon: 'ri-file-line' },
-      { label: 'patient', path: '/patient', icon: 'ri-file-line' }
-    ]
+    icon: 'ri-user-fill'
   }
+
   // Autres éléments du menu
 ]

@@ -34,8 +34,10 @@ import themeConfig from '@configs/themeConfig'
 import { useImageVariant } from '@core/hooks/useImageVariant'
 import { Box } from '@mui/material'
 import { getStorageData, setStorageData } from '@/utils/helpers'
+import { log } from 'console'
+import { IconExclamationCircle } from '@tabler/icons-react'
 
-const Login = ({ mode }: { mode: Mode }) => {
+const Login = () => {
   const router = useRouter()
   const isLogged: any =
     getStorageData('typeOfLogger') !== -1 &&
@@ -47,40 +49,102 @@ const Login = ({ mode }: { mode: Mode }) => {
   }
   // States
   const [isPasswordShown, setIsPasswordShown] = useState(false)
-  const [email, setEmail] = useState<string>('')
-  const [mdp, setMdp] = useState<string>('')
+  const [data, setData] = useState<any>({ email: '', mdp: '' })
   const [typeOfLogger, setTypeOfLogger] = useState<number>(-1)
   const [controls, setControls] = useState<any>({
     email: false,
     mdp: false
   })
+  // async function handleSave() {
+  //   try {
+  //     const url = `${window.location.origin}/api/login/auth`
+  //     const areAllValuesFalse = (controls: any) => {
+  //       return Object.values(controls).every(value => value === false)
+  //     }
+  //     setControls((prev: any) => ({
+  //       ...prev,
+  //       email: data.email?.trim() === '',
+  //       mdp: data.mdp?.trim() === ''
+  //     }))
+  //     const canGo: boolean = areAllValuesFalse(setControls)
+  //     if (canGo) {
+  //       const requestBody = JSON.stringify(data)
+
+  //       const requestOptions = {
+  //         method: 'POST',
+  //         headers: { 'Content-Type': 'application/json' },
+  //         body: requestBody
+  //       }
+
+  //       const response = await fetch(url, requestOptions)
+  //       const responseData = await response.json()
+  //       console.log('Données reçues :', responseData)
+
+  //       if (!responseData.erreur && responseData.data) {
+  //         const comptes = responseData.data
+
+  //         if (
+  //           comptes.admin.find(
+  //             (user: { email: string; mdp: string }) => user.email === data.email && user.mdp === data.mdp
+  //           )
+  //         ) {
+  //           setStorageData('typeOfLogger', 1)
+  //           router.push('/')
+  //         } else if (
+  //           comptes.med.find(
+  //             (user: { email: string; mdp: string }) => user.email === data.email && user.mdp === data.mdp
+  //           )
+  //         ) {
+  //           setStorageData('typeOfLogger', 2)
+  //           router.push('/')
+  //         } else if (
+  //           comptes.labo.find(
+  //             (user: { email: string; mdp: string }) => user.email === data.email && user.mdp === data.mdp
+  //           )
+  //         ) {
+  //           setStorageData('typeOfLogger', 3)
+  //           router.push('/')
+  //         } else {
+  //           setTypeOfLogger(0)
+  //         }
+  //       }
+  //     } else {
+  //       console.log('Validation failed: Some fields are empty.')
+  //     }
+  //   } catch (error) {
+  //     console.error('Erreur lors de la connexion:', error)
+  //     alert('Erreur serveur')
+  //   }
+  // }
   async function handleSave() {
     try {
-      setControls((prev: any) => ({ ...prev, email: email?.trim() === '' }))
-      setControls((prev: any) => ({ ...prev, mdp: mdp?.trim() === '' }))
+      // setControls((prev: any) => ({ ...prev, email: data.email?.trim() === '' }));
+      // setControls((prev: any) => ({ ...prev, mdp: data.mdp?.trim() === '' }));
+      const url = `${window.location.origin}/api/login/auth`
+      const requestBody = JSON.stringify({ email: data.email, mdp: data.mdp })
 
-      if (email === 'admin' && mdp === 'admin') {
-        setStorageData('typeOfLogger', 1)
-        router.push('/')
-      } else if (email === 'med' && mdp === 'med') {
-        setStorageData('typeOfLogger', 2)
-        router.push('/')
-      } else if (email === 'labo' && mdp === 'labo') {
-        setStorageData('typeOfLogger', 3)
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: requestBody
+      }
+      const response = await fetch(url, requestOptions)
+
+      const result = await response.json()
+
+      if (!result.erreur) {
+        setStorageData('typeOfLogger', result.role)
         router.push('/')
       } else {
         setTypeOfLogger(0)
       }
-    } catch {}
+    } catch (error) {
+      console.error('Erreur de connexion', error)
+    }
   }
 
-  // Vars
   const darkImg = '/images/pages/auth-v1-mask-dark.png'
   const lightImg = '/images/pages/auth-v1-mask-light.png'
-
-  // Hooks
-
-  const authBackground = useImageVariant(mode, lightImg, darkImg)
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
 
@@ -89,80 +153,8 @@ const Login = ({ mode }: { mode: Mode }) => {
     router.push('/')
   }
 
-  // return (
-  //   <div className='flex flex-col justify-center items-center min-bs-[100dvh] relative p-6'>
-  //     <Card className='flex flex-col sm:is-[450px]'>
-  //       <CardContent className='p-6 sm:!p-12'>
-  //         <Link href='/' className='flex justify-center items-center mbe-6'>
-  //           <Logo />
-  //         </Link>
-  //         <div className='flex flex-col gap-5'>
-  //           <div>
-  //             <Typography variant='h4'>{`Welcome to ${themeConfig.templateName}!👋🏻`}</Typography>
-  //             {/* <Typography className='mbs-1'>Please sign-in to your account and start the adventure</Typography> */}
-  //           </div>
-  //           <form noValidate autoComplete='off' onSubmit={handleSubmit} className='flex flex-col gap-5'>
-  //             <TextField autoFocus fullWidth label='Email' />
-  //             <TextField
-  //               fullWidth
-  //               label='Password'
-  //               id='outlined-adornment-password'
-  //               type={isPasswordShown ? 'text' : 'password'}
-  //               InputProps={{
-  //                 endAdornment: (
-  //                   <InputAdornment position='end'>
-  //                     <IconButton
-  //                       size='small'
-  //                       edge='end'
-  //                       onClick={handleClickShowPassword}
-  //                       onMouseDown={e => e.preventDefault()}
-  //                     >
-  //                       <i className={isPasswordShown ? 'ri-eye-off-line' : 'ri-eye-line'} />
-  //                     </IconButton>
-  //                   </InputAdornment>
-  //                 )
-  //               }}
-  //             />
-  //             <div className='flex justify-between items-center gap-x-3 gap-y-1 flex-wrap'>
-  //               <FormControlLabel control={<Checkbox />} label='Remember me' />
-  //               <Typography className='text-end' color='primary' component={Link} href='/forgot-password'>
-  //                 Forgot password?
-  //               </Typography>
-  //             </div>
-  //             <Button fullWidth variant='contained' type='submit'>
-  //               Log In
-  //             </Button>
-  //             <div className='flex justify-center items-center flex-wrap gap-2'>
-  //               <Typography>New on our platform?</Typography>
-  //               <Typography component={Link} href='/register' color='primary'>
-  //                 Create an account
-  //               </Typography>
-  //             </div>
-  //             <Divider className='gap-3'>or</Divider>
-  //             <div className='flex justify-center items-center gap-2'>
-  //               <IconButton size='small' className='text-facebook'>
-  //                 <i className='ri-facebook-fill' />
-  //               </IconButton>
-  //               <IconButton size='small' className='text-twitter'>
-  //                 <i className='ri-twitter-fill' />
-  //               </IconButton>
-  //               <IconButton size='small' className='text-github'>
-  //                 <i className='ri-github-fill' />
-  //               </IconButton>
-  //               <IconButton size='small' className='text-googlePlus'>
-  //                 <i className='ri-google-fill' />
-  //               </IconButton>
-  //             </div>
-  //           </form>
-  //         </div>
-  //       </CardContent>
-  //     </Card>
-  //     <Illustrations maskImg={{ src: authBackground }} />
-  //   </div>
-  // )
-
   return (
-    <div className='flex flex-col lg:flex-row min-h-screen items-center justify-center relative h-screen w-screen bg-white'>
+    <div className='flex flex-col lg:flex-row min-h-screen items-center justify-center w-full md:w-full relative h-screen w-screen bg-white'>
       <div className='hidden lg:flex flex-1 justify-center items-center min-h-screen bg-gray-100'>
         <span className='absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:inline-start-[38px]'>
           <Logo />
@@ -177,15 +169,23 @@ const Login = ({ mode }: { mode: Mode }) => {
           <Typography className='mbs-1 text-lg '>Please sign-in to your account and start the adventure</Typography>
         </div>
         <form className='w-full space-y-6 mt-8'>
+          {typeOfLogger === 0 ? (
+            <div className='err'>
+              <IconExclamationCircle stroke={2} color='red' className='posIconErreur' />
+              <p className='posErreur'>Email ou mot de passe incorrect, veuillez réessayer</p>
+            </div>
+          ) : null}
+
           <div>
             <TextField
+              value={data.email}
               fullWidth
               className={`${controls?.email === true ? 'isReq' : ''}`}
               label='Email'
               type='email'
               autoFocus
               InputLabelProps={{
-                sx: { fontSize: '1rem' } // Taille par défaut du label
+                sx: { fontSize: '1rem' }
               }}
               InputProps={{
                 sx: {
@@ -200,10 +200,16 @@ const Login = ({ mode }: { mode: Mode }) => {
               onChange={(e: any) => {
                 if (e.target?.value.trim() === '') {
                   setControls({ ...controls, email: true })
-                  setEmail('')
+                  setData((prev: any) => ({
+                    ...prev,
+                    email: e.target.value
+                  }))
                 } else {
                   setControls({ ...controls, email: false })
-                  setEmail(e.target.value)
+                  setData((prev: any) => ({
+                    ...prev,
+                    email: e.target.value
+                  }))
                 }
               }}
             />
@@ -212,6 +218,7 @@ const Login = ({ mode }: { mode: Mode }) => {
           <div>
             <TextField
               fullWidth
+              value={data.mdp}
               className={`${controls?.mdp === true ? 'isReq' : ''}`}
               label='Password'
               id='outlined-adornment-password'
@@ -222,10 +229,16 @@ const Login = ({ mode }: { mode: Mode }) => {
               onChange={(e: any) => {
                 if (e.target?.value.trim() === '') {
                   setControls({ ...controls, mdp: true })
-                  setMdp('')
+                  setData((prev: any) => ({
+                    ...prev,
+                    mdp: e.target.value
+                  }))
                 } else {
                   setControls({ ...controls, mdp: false })
-                  setMdp(e.target.value)
+                  setData((prev: any) => ({
+                    ...prev,
+                    mdp: e.target.value
+                  }))
                 }
               }}
               InputProps={{
@@ -254,7 +267,6 @@ const Login = ({ mode }: { mode: Mode }) => {
             />
             {controls?.mdp === true ? <span className='errmsg'>Please enter the password !</span> : null}
           </div>
-          {typeOfLogger === -1 ? <span className='errmsg'>Please enter the password !</span> : null}
           <Box
             className='flex justify-between items-center'
             sx={{

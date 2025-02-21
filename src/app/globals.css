@@ -122,7 +122,26 @@ code {
   background-image: url('/images/hero-bg.jpg');
   background-size: cover;
   background-position-y: top;
+  background-attachment: scroll;
+  height: 400px;
 }
+
+@media (max-width: 768px) {
+  .bg2 {
+    height: 300px;
+    background-position-y: center;
+    background-position-x: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .bg2 {
+    height: 250px;
+    background-position-y: center;
+    background-position-x: center;
+  }
+}
+
 .text-white {
   --text-opacity: 1;
   --white-rgb: 255, 255, 255;
@@ -230,12 +249,11 @@ code {
 
 .nav-links .active {
   text-decoration: underline;
-  text-decoration-thickness: 2px; /* Épaisseur de l'underline */
-  text-underline-offset: 4px; /* Espace entre le texte et l'underline */
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
   color: black;
 }
 
-/* Boutons Auth (Sign In / Sign Up) */
 .auth-buttons {
   display: flex;
   gap: 10px;
@@ -272,7 +290,6 @@ code {
   border: 1px solid #0573b8;
 }
 
-/* Menu Burger */
 .menu-toggle {
   display: none;
   font-size: 24px;
@@ -281,14 +298,11 @@ code {
   cursor: pointer;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
-  /* Affichage du menu burger */
   .menu-toggle {
     display: block;
   }
 
-  /* Masquer les liens de navigation par défaut sur mobile */
   .nav-links {
     display: none;
     flex-direction: column;
@@ -304,8 +318,6 @@ code {
   .nav-links.open {
     display: flex;
   }
-
-  /* Garder les boutons visibles sur mobile */
   .auth-buttons {
     display: flex;
   }
@@ -314,14 +326,10 @@ code {
   font-family: 'sharp-sans-bold' !important;
   font-style: normal !important;
   font-weight: bold !important;
-  font-size: 40px !important;
-  line-height: 122% !important;
   color: #00234b;
 }
 .subtitle {
   font-family: sharp-sans-semibold, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 25px;
   color: #00234b;
 }
 .txt {
@@ -336,8 +344,41 @@ code {
   padding-bottom: 50px;
   padding-top: 50px;
 }
-@media (max-width: 767px) {
-  .single_slider {
-    height: 420px;
-  }
+.posX {
+  transform: translateX(20%);
+}
+.posY {
+  transform: translateY(-30%);
+}
+.posGrid {
+  transform: translate(20%, 40%);
+}
+.target {
+  scroll-margin-top: 60px;
+}
+.overlay {
+  height: 200px;
+  width: 100%;
+  background: #1a76d1;
+}
+.err {
+  border: 1px solid red;
+  background-color: rgb(255, 188, 188);
+  height: 3.5rem;
+
+  padding: 0.5rem;
+  color: red;
+  border-radius: 6px;
+}
+.posErreur {
+  transform: translate(10%, -100%);
+}
+.posIconErreur {
+  transform: translate(30%, 30%);
+}
+.posArrow {
+  transform: translateY(-20%);
+}
+.posConcard {
+  transform: translateY(-10%);
 }

@@ -33,14 +33,24 @@ const Register = () => {
   // States
   const [isPasswordShown, setIsPasswordShown] = useState(false)
 
-  const [data, setData] = useState<any>({ email: '', mdp: '', role: '', nom: '', spe: 0 })
+  const [data, setData] = useState<any>({
+    email: '',
+    mdp: '',
+    role: 0,
+    prenom: '',
+    nom: '',
+    nom_ut: '',
+    spe: 0,
+    ser: 0
+  })
 
   const [controls, setControls] = useState<any>({
     email: false,
     mdp: false,
     nom: false,
     role: false,
-    spe: 0
+    prenom: false,
+    nom_ut: false
   })
   const options = [
     { label: 'Admin', value: 1 },
@@ -52,46 +62,57 @@ const Register = () => {
     { label: 'SP2', value: 2 },
     { label: 'SP3', value: 3 }
   ]
+  const optionsLab = [
+    { label: 'Sr1', value: 1 },
+    { label: 'Sr2', value: 2 },
+    { label: 'Sr3', value: 3 }
+  ]
+
   const clearForm = () => {
-    setData({ email: '', mdp: '', role: '', nom: '' })
-    setControls(false)
+    setData({ email: '', mdp: '', role: 0, prenom: '', nom: '', nom_ut: '', spe: 0, ser: 0 })
+    setControls({
+      email: false,
+      mdp: false,
+      role: false,
+      prenom: false,
+      nom: false,
+      nom_ut: false
+    })
   }
-  // useEffect(() => {
-  //   if (data) {
-  //     clearForm()
-  //     setId(data.id)
-  //     setEmail(data.email)
-  //     setMdp(data.mdp)
-  //     setNom(data.nom)
-  //   } else {
-  //     clearForm()
-  //   }
-  // }, [data])
 
   async function handleSave() {
     try {
+      const url = `${window.location.origin}/api/register/ajouter`
+
       setControls((prev: any) => ({ ...prev, email: data.email?.trim() === '' }))
       setControls((prev: any) => ({ ...prev, mdp: data.mdp?.trim() === '' }))
       setControls((prev: any) => ({ ...prev, nom: data.nom?.trim() === '' }))
-      setControls((prev: any) => ({ ...prev, role: data.role === '' }))
-      const url = `${window.location.origin}/api/register/ajouter`
-      const requestBody: any = JSON.stringify(data)
+      setControls((prev: any) => ({ ...prev, prenom: data.nom?.trim() === '' }))
+      setControls((prev: any) => ({ ...prev, nom_ut: data.nom?.trim() === '' }))
+      setControls((prev: any) => ({ ...prev, role: data.role === 0 }))
+
+      const requestBody = JSON.stringify(data)
 
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: requestBody
       }
-      await fetch(url, requestOptions)
-        .then(response => response.json())
-        .then(data => setData(data))
-      // console.log('ajouter')
 
-      clearForm()
-    } catch {
-      console.log('erreur')
+      const response = await fetch(url, requestOptions)
+      const responseData = await response.json()
+
+      if (responseData.erreur) {
+        alert(responseData.message)
+      } else {
+        setData(responseData)
+        clearForm()
+      }
+    } catch (error) {
+      console.log('Erreur:', error)
     }
   }
+
   // Vars
   const darkImg = '/images/pages/auth-v1-mask-dark.png'
   const lightImg = '/images/pages/auth-v1-mask-light.png'
@@ -101,7 +122,7 @@ const Register = () => {
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
 
   return (
-    <div className='flex flex-col lg:flex-row min-h-screen items-center justify-center relative h-screen w-screen bg-white'>
+    <div className='flex flex-col w-full md:w-full lg:flex-row min-h-screen items-center justify-center relative h-screen w-screen bg-white'>
       <div className='hidden lg:flex flex-1 justify-center items-center min-h-screen bg-gray-100'>
         <span className='absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:inline-start-[38px]'>
           <Logo />
@@ -111,29 +132,62 @@ const Register = () => {
 
       {/* Formulaire */}
       <div className='flex flex-col justify-center items-center w-full max-w-xl p-12 min-h-screen space-y-6'>
-        <div className='mb-5'>
-          <h3 className='text-3xl font-bold mb-3'>Adventure starts here 🚀</h3>
-          <Typography className='mbs-1 text-lg '>Make your app management easy and fun!</Typography>
+        <div className='mb-3'>
+          <h3 className='text-3xl font-bold'>S'inscrire </h3>
         </div>
         <form noValidate autoComplete='off' className='w-full space-y-6 mt-8'>
           <div>
+            <FormControl fullWidth>
+              <InputLabel>Type</InputLabel>
+              <Select
+                label='Type'
+                className={`${controls?.role === true ? 'isReq' : ''}`}
+                value={data?.role || null}
+                onChange={(e: any) => {
+                  console.log(e)
+
+                  if (e === null) {
+                    setControls({ ...controls, role: true })
+                    setData((prev: any) => ({
+                      ...prev,
+                      role: e.target.value
+                    }))
+                  } else {
+                    setControls({ ...controls, role: false })
+                    setData((prev: any) => ({
+                      ...prev,
+                      role: e.target.value
+                    }))
+                  }
+                }}
+              >
+                {options.map(item => (
+                  <MenuItem value={item.value} key={item.value}>
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            {controls?.role === true ? <span className='errmsg'>Please enter the role !</span> : null}
+          </div>
+          <div>
             <TextField
               fullWidth
-              label='Username'
-              value={data.nom}
-              className={`${controls?.nom === true ? 'isReq' : ''}`}
+              label='Nom utilisateur'
+              value={data?.nom_ut || null}
+              className={`${controls?.nom_ut === true ? 'isReq' : ''}`}
               onChange={(e: any) => {
                 if (e.target?.value.trim() === '') {
-                  setControls({ ...controls, nom: true })
+                  setControls({ ...controls, nom_ut: true })
                   setData((prev: any) => ({
                     ...prev,
-                    nom: e.target.value
+                    nom_ut: e.target.value
                   }))
                 } else {
-                  setControls({ ...controls, nom: false })
+                  setControls({ ...controls, nom_ut: false })
                   setData((prev: any) => ({
                     ...prev,
-                    nom: e.target.value
+                    nom_ut: e.target.value
                   }))
                 }
               }}
@@ -152,8 +206,88 @@ const Register = () => {
                 }
               }}
             />
-            {controls?.nom === true ? <span className='errmsg'>Please enter the name !</span> : null}
+            {controls?.nom_ut === true ? <span className='errmsg'>Please enter the user name !</span> : null}
           </div>
+          {data?.role === 2 ? (
+            <div>
+              <TextField
+                fullWidth
+                label='Prenom'
+                value={data?.prenom || null}
+                className={`${controls?.prenom === true ? 'isReq' : ''}`}
+                onChange={(e: any) => {
+                  if (e.target?.value.trim() === '') {
+                    setControls({ ...controls, prenom: true })
+                    setData((prev: any) => ({
+                      ...prev,
+                      prenom: e.target.value
+                    }))
+                  } else {
+                    setControls({ ...controls, prenom: false })
+                    setData((prev: any) => ({
+                      ...prev,
+                      prenom: e.target.value
+                    }))
+                  }
+                }}
+                autoFocus
+                InputLabelProps={{
+                  sx: { fontSize: '1rem' }
+                }}
+                InputProps={{
+                  sx: {
+                    height: 60,
+                    '&.Mui-focused': {
+                      '& + .MuiInputLabel-root': {
+                        fontSize: '1rem'
+                      }
+                    }
+                  }
+                }}
+              />
+              {controls?.prenom === true ? <span className='errmsg'>Please enter the first name !</span> : null}
+            </div>
+          ) : null}
+          {data?.role === 2 ? (
+            <div>
+              <TextField
+                fullWidth
+                label='Nom'
+                value={data?.nom || null}
+                className={`${controls?.nom === true ? 'isReq' : ''}`}
+                onChange={(e: any) => {
+                  if (e.target?.value.trim() === '') {
+                    setControls({ ...controls, nom: true })
+                    setData((prev: any) => ({
+                      ...prev,
+                      nom: e.target.value
+                    }))
+                  } else {
+                    setControls({ ...controls, nom: false })
+                    setData((prev: any) => ({
+                      ...prev,
+                      nom: e.target.value
+                    }))
+                  }
+                }}
+                autoFocus
+                InputLabelProps={{
+                  sx: { fontSize: '1rem' }
+                }}
+                InputProps={{
+                  sx: {
+                    height: 60,
+                    '&.Mui-focused': {
+                      '& + .MuiInputLabel-root': {
+                        fontSize: '1rem'
+                      }
+                    }
+                  }
+                }}
+              />
+              {controls?.nom === true ? <span className='errmsg'>Please enter the last name !</span> : null}
+            </div>
+          ) : null}
           <div>
             <TextField
               fullWidth
@@ -171,7 +305,7 @@ const Register = () => {
                   }
                 }
               }}
-              value={data.email}
+              value={data?.email || null}
               className={`${controls?.email === true ? 'isReq' : ''}`}
               onChange={(e: any) => {
                 if (e.target?.value.trim() === '') {
@@ -194,6 +328,7 @@ const Register = () => {
           <div>
             <TextField
               fullWidth
+              value={data?.mdp || null}
               label='Password'
               type={isPasswordShown ? 'text' : 'password'}
               InputLabelProps={{
@@ -241,73 +376,54 @@ const Register = () => {
             />
             {controls?.mdp === true ? <span className='errmsg'>Please enter the password !</span> : null}
           </div>
-          <div>
-            <FormControl fullWidth>
-              <InputLabel>Type</InputLabel>
-              <Select
-                className={`${controls?.role === true ? 'isReq' : ''}`}
-                value={data?.role || null}
-                onChange={(e: any) => {
-                  console.log(e)
-
-                  if (e === null) {
-                    setControls({ ...controls, role: true })
-                    setData((prev: any) => ({
-                      ...prev,
-                      role: e.target.value
-                    }))
-                  } else {
-                    setControls({ ...controls, role: false })
-                    setData((prev: any) => ({
-                      ...prev,
-                      role: e.target.value
-                    }))
-                  }
-                }}
-              >
-                {options.map(item => (
-                  <MenuItem value={item.value} key={item.value}>
-                    {item.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            {controls?.role === true ? <span className='errmsg'>Please enter the role !</span> : null}
-          </div>
-
-          <div style={{ display: data?.role !== 2 ? 'none' : '' }}>
-            <FormControl fullWidth>
-              <InputLabel>Spéciallité</InputLabel>
-              <Select
-                value={data?.spe || null}
-                onChange={(e: any) => {
-                  if (e === null) {
-                    setData({ ...data, spe: e.target.value })
-                  } else {
-                    setData({ ...data, spe: e.target.value })
-                  }
-                }}
-              >
-                {optionsMed.map(item => (
-                  <MenuItem value={item.value} key={item.value}>
-                    {item.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-
-          <FormControlLabel
-            control={<Checkbox />}
-            label={
-              <>
-                <span>I agree to </span>
-                <Link className='text-primary' href='/' onClick={e => e.preventDefault()}>
-                  privacy policy & terms
-                </Link>
-              </>
-            }
-          />
+          {data?.role === 2 ? (
+            <div>
+              <FormControl fullWidth>
+                <InputLabel>Spéciallité</InputLabel>
+                <Select
+                  label='Spéciallité'
+                  value={data?.spe || null}
+                  onChange={(e: any) => {
+                    if (e === null) {
+                      setData({ ...data, spe: e.target.value })
+                    } else {
+                      setData({ ...data, spe: e.target.value })
+                    }
+                  }}
+                >
+                  {optionsMed.map(item => (
+                    <MenuItem value={item.value} key={item.value}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+          ) : null}
+          {data?.role === 3 ? (
+            <div>
+              <FormControl fullWidth>
+                <InputLabel>Service</InputLabel>
+                <Select
+                  label='Service'
+                  value={data?.ser || null}
+                  onChange={(e: any) => {
+                    if (e === null) {
+                      setData({ ...data, ser: e.target.value })
+                    } else {
+                      setData({ ...data, ser: e.target.value })
+                    }
+                  }}
+                >
+                  {optionsLab.map(item => (
+                    <MenuItem value={item.value} key={item.value}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+          ) : null}
           <Button
             fullWidth
             variant='contained'
@@ -317,15 +433,24 @@ const Register = () => {
               fontSize: '1rem'
             }}
             onClick={() => {
-              if (data.email?.trim() !== '') handleSave()
+              // if (
+              //   data.email.trim() !== '' &&
+              //   data.mdp.trim() !== '' &&
+              //   data.nom.trim() !== '' &&
+              //   data.nom_ut.trim() !== '' &&
+              //   data.prenom.trim() !== '' &&
+              //   data.role !== 0
+              // ) {
+              handleSave()
+              // }
             }}
           >
-            Sign Up
+            S'inscrire
           </Button>
           <div className='flex justify-center items-center flex-wrap gap-2'>
-            <Typography>Already have an account?</Typography>
+            <Typography>Vous avez déjà un compte ?</Typography>
             <Typography component={Link} href='/login' color='primary'>
-              Sign in instead
+              Connectez-vous à la place
             </Typography>
           </div>
         </form>
