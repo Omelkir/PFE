@@ -1,7 +1,21 @@
 import HomePage from './home_page/home'
-
+import Footer from './footer/Footer'
+import Hero from './Hero/Hero'
+import Services from './Services/Services'
+import Banner from './Banner/Banner'
+import Subscribe from './Subscribe/Subscribe'
+import Banner2 from './Banner/Banner2'
 const FrontPage = () => {
-  return <HomePage />
+  return (
+    <div>
+      <Hero />
+      <Services />
+      <Banner />
+      <Subscribe />
+      <Banner2 />
+      <Footer />
+    </div>
+  )
 }
 
 export default FrontPage

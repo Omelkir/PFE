@@ -7,7 +7,7 @@ type HorizontalLayoutWrapperProps = {
 }
 
 const HorizontalLayoutWrapper = ({ horizentalLayout }: HorizontalLayoutWrapperProps) => {
-  return <div className='flex flex-col min-h-screen'>{horizentalLayout}</div>
+  return <div>{horizentalLayout}</div>
 }
 
 export default HorizontalLayoutWrapper

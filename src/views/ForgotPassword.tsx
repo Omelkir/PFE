@@ -39,34 +39,27 @@ const ForgotPassword = () => {
   async function handleSave() {
     try {
       const url = `${window.location.origin}/api/forgot-password/send-mail`
-      const areAllValuesFalse = (controls: any) => {
-        return Object.values(controls).every(value => value === false)
+
+      const canGo: boolean = true
+
+      if (canGo) {
+        const requestBody = JSON.stringify({ to: data.email })
+
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: requestBody
+        }
+
+        // Send the request
+        const response = await fetch(url, requestOptions)
+        const responseData = await response.json()
+
+        // Clear the form after successful submission
+        // clearForm()
+      } else {
+        console.log('Validation failed: Some fields are empty.')
       }
-      // setControls((prev: any) => ({
-      //   ...prev,
-      //   email: data.email?.trim() === ''
-      // }))
-
-      // const canGo: boolean = areAllValuesFalse(setControls)
-
-      // if (canGo) {
-      const requestBody = JSON.stringify({ to: 'omelkirrebei22@gmail.com', subject: 'cc', text: 'cc' })
-
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: requestBody
-      }
-
-      // Send the request
-      const response = await fetch(url, requestOptions)
-      const responseData = await response.json()
-
-      // Clear the form after successful submission
-      // clearForm()
-      // } else {
-      //   console.log('Validation failed: Some fields are empty.')
-      // }
     } catch (error) {
       console.log('Erreur:', error)
     }
@@ -100,21 +93,21 @@ const ForgotPassword = () => {
               sx: { height: 60 }
             }}
             className={`${controls?.email === true ? 'isReq' : ''}`}
-            // onChange={(e: any) => {
-            //   if (e.target?.value.trim() === '') {
-            //     setControls({ ...controls, email: true })
-            //     setData((prev: any) => ({
-            //       ...prev,
-            //       email: e.target.value
-            //     }))
-            //   } else {
-            //     setControls({ ...controls, email: false })
-            //     setData((prev: any) => ({
-            //       ...prev,
-            //       email: e.target.value
-            //     }))
-            //   }
-            // }}
+            onChange={(e: any) => {
+              if (e.target?.value.trim() === '') {
+                setControls({ ...controls, email: true })
+                setData((prev: any) => ({
+                  ...prev,
+                  email: e.target.value
+                }))
+              } else {
+                setControls({ ...controls, email: false })
+                setData((prev: any) => ({
+                  ...prev,
+                  email: e.target.value
+                }))
+              }
+            }}
           />
           {controls?.email === true ? <span className='errmsg'>Please enter the email !</span> : null}
           <Button

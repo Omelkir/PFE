@@ -2,49 +2,54 @@
 import React from 'react'
 import { IoMdMenu } from 'react-icons/io'
 import { motion } from 'framer-motion'
+import Logo from '@/components/layout/shared/Logo'
+import { Button } from '@mui/material'
+import { useRouter } from 'next/navigation'
+import path from 'path'
 
 const NavbarMenu = [
   {
     id: 1,
-    title: 'Home',
+    title: 'Acceuil',
     path: '/'
   },
   {
     id: 2,
-    title: 'Services',
+    title: 'À propos de nous',
     link: '#'
   },
   {
     id: 3,
-    title: 'About Us',
-    link: '#'
+    title: 'Médecin',
+    path: '/medecin'
   },
   {
     id: 4,
-    title: 'Our Team',
+    title: 'Laboratoire',
     link: '#'
   },
   {
     id: 5,
-    title: 'Contact Us',
+    title: 'Contactez-nous',
     link: '#'
   }
 ]
 const Navbar = () => {
+  const router = useRouter()
   return (
     <nav className='relative z-20'>
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        className='container py-10 flex justify-between items-center'
+        className='py-5 px-20 fixed left-0 right-0 bg-white flex justify-between items-center'
       >
         {/* Logo section */}
         <div>
-          <h1 className='font-bold text-2xl'>The Coding Journey</h1>
+          <Logo />
         </div>
         {/* Menu section */}
         <div className='hidden lg:block'>
-          <ul className='flex items-center gap-3'>
+          <ul className='flex items-center gap-3' style={{ listStyle: 'none' }}>
             {NavbarMenu.map(menu => (
               <li key={menu.id}>
                 <a href={menu.path} className='inline-block py-2 px-3 hover:text-secondary relative group'>
@@ -53,10 +58,18 @@ const Navbar = () => {
                 </a>
               </li>
             ))}
-            <button className='primary-btn'>Sign In</button>
+            <Button
+              className='primary-btn'
+              onClick={() => {
+                router.push('/login')
+              }}
+            >
+              Se connecter
+            </Button>
           </ul>
         </div>
         {/* Mobile Hamburger menu section */}
+
         <div className='lg:hidden'>
           <IoMdMenu className='text-4xl' />
         </div>

@@ -21,10 +21,10 @@ const HorizontalLayout = (props: HorizontalLayoutProps) => {
   const { nav, children } = props
 
   return (
-    <div className={classnames(horizontalLayoutClasses.root, 'flex flex-row min-h-screen')}>
-      <div className='sticky top-0 bg-white z-50'>{nav || null}</div>
-      <div className='flex flex-row flex-auto pt-16'>
-        <div className={classnames(horizontalLayoutClasses.contentWrapper, 'flex-1 flex-auto')}>
+    <div className={classnames(horizontalLayoutClasses.root)}>
+      <div>{nav || null}</div>
+      <div>
+        <div className={classnames(horizontalLayoutClasses.contentWrapper)}>
           <LayCont>{children}</LayCont>
         </div>
       </div>

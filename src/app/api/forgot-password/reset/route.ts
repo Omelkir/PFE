@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { forgotpass } from '@/app/api-controller/forgot-password'
+import { reset } from '@/app/api-controller/reset-pass'
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const data = await forgotpass(body)
+    const data = await reset(body)
 
     return NextResponse.json(data)
   } catch (error) {
