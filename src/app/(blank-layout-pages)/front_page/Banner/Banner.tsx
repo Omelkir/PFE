@@ -17,9 +17,9 @@ const Banner = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
-            src='/img/Doctor.png'
+            src='/img/img3.jpg'
             alt=''
-            className='w-[450px] md:max-w-[550px] object-cover drop-shadow'
+            className='w-[450px] md:max-w-[550px] rounded-[100%] object-cover drop-shadow'
           />
         </div>
         {/* Banner Text */}

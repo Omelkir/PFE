@@ -28,7 +28,8 @@ export const FadeUp = (delay: any) => {
 
 const Hero = () => {
   return (
-    <section className='bg-light overflow-hidden relative'>
+    <motion.div variants={FadeUp(0.8)} initial='initial' animate='animate' className='bg2'>
+      {/* <section className='bg-light overflow-hidden relative bg2'> */}
       <div className='container grid grid-cols-1 md:grid-cols-2 min-h-[650px]'>
         <div className='flex flex-col justify-center py-14 md:py-0 relative '>
           <div className='text-center md:text-left mt-20 md:mt-0 space-y-10 lg:max-w-[400px]'>
@@ -54,7 +55,7 @@ const Hero = () => {
           </div>
         </div>
         {/* Hero Image */}
-        <div className='flex justify-center items-center mt-0 md:mt-20'>
+        {/* <div className='flex justify-center items-center mt-0 md:mt-20'>
           <motion.img
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -71,9 +72,10 @@ const Hero = () => {
             alt=''
             className='absolute -bottom-32 w-[800px] md:w-[1500px] z-[1] hidden md:block'
           />
-        </div>
+        </div> */}
       </div>
-    </section>
+      {/* </section> */}
+    </motion.div>
   )
 }
 

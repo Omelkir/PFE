@@ -1,4 +1,3 @@
-import HomePage from './home_page/home'
 import Footer from './footer/Footer'
 import Hero from './Hero/Hero'
 import Services from './Services/Services'
@@ -9,9 +8,9 @@ const FrontPage = () => {
   return (
     <div>
       <Hero />
-      <Services />
+      {/* <Services /> */}
       <Banner />
-      <Subscribe />
+      {/* <Subscribe /> */}
       <Banner2 />
       <Footer />
     </div>

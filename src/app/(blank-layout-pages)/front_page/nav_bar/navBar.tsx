@@ -6,12 +6,13 @@ import Logo from '@/components/layout/shared/Logo'
 import { Button } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import path from 'path'
+import Link from '@/components/Link'
 
 const NavbarMenu = [
   {
     id: 1,
     title: 'Acceuil',
-    path: '/'
+    path: '/front_page'
   },
   {
     id: 2,
@@ -21,7 +22,7 @@ const NavbarMenu = [
   {
     id: 3,
     title: 'Médecin',
-    path: '/medecin'
+    path: '/front_page/med'
   },
   {
     id: 4,
@@ -41,7 +42,7 @@ const Navbar = () => {
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        className='py-5 px-20 fixed left-0 right-0 bg-white flex justify-between items-center'
+        className='py-2 px-20 bg-white flex justify-between items-center rounded-xl mt-3 ml-3 mr-3'
       >
         {/* Logo section */}
         <div>
@@ -58,14 +59,7 @@ const Navbar = () => {
                 </a>
               </li>
             ))}
-            <Button
-              className='primary-btn'
-              onClick={() => {
-                router.push('/login')
-              }}
-            >
-              Se connecter
-            </Button>
+            <Link className='underline'>Se connecter</Link>
           </ul>
         </div>
         {/* Mobile Hamburger menu section */}

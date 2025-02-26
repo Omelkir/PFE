@@ -55,67 +55,7 @@ const Login = () => {
     email: false,
     mdp: false
   })
-  // async function handleSave() {
-  //   try {
-  //     const url = `${window.location.origin}/api/login/auth`
-  //     const areAllValuesFalse = (controls: any) => {
-  //       return Object.values(controls).every(value => value === false)
-  //     }
-  //     setControls((prev: any) => ({
-  //       ...prev,
-  //       email: data.email?.trim() === '',
-  //       mdp: data.mdp?.trim() === ''
-  //     }))
-  //     const canGo: boolean = areAllValuesFalse(setControls)
-  //     if (canGo) {
-  //       const requestBody = JSON.stringify(data)
 
-  //       const requestOptions = {
-  //         method: 'POST',
-  //         headers: { 'Content-Type': 'application/json' },
-  //         body: requestBody
-  //       }
-
-  //       const response = await fetch(url, requestOptions)
-  //       const responseData = await response.json()
-  //       console.log('Données reçues :', responseData)
-
-  //       if (!responseData.erreur && responseData.data) {
-  //         const comptes = responseData.data
-
-  //         if (
-  //           comptes.admin.find(
-  //             (user: { email: string; mdp: string }) => user.email === data.email && user.mdp === data.mdp
-  //           )
-  //         ) {
-  //           setStorageData('typeOfLogger', 1)
-  //           router.push('/')
-  //         } else if (
-  //           comptes.med.find(
-  //             (user: { email: string; mdp: string }) => user.email === data.email && user.mdp === data.mdp
-  //           )
-  //         ) {
-  //           setStorageData('typeOfLogger', 2)
-  //           router.push('/')
-  //         } else if (
-  //           comptes.labo.find(
-  //             (user: { email: string; mdp: string }) => user.email === data.email && user.mdp === data.mdp
-  //           )
-  //         ) {
-  //           setStorageData('typeOfLogger', 3)
-  //           router.push('/')
-  //         } else {
-  //           setTypeOfLogger(0)
-  //         }
-  //       }
-  //     } else {
-  //       console.log('Validation failed: Some fields are empty.')
-  //     }
-  //   } catch (error) {
-  //     console.error('Erreur lors de la connexion:', error)
-  //     alert('Erreur serveur')
-  //   }
-  // }
   async function handleSave() {
     try {
       // setControls((prev: any) => ({ ...prev, email: data.email?.trim() === '' }));
