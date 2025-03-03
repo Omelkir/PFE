@@ -5,7 +5,11 @@ import { motion } from 'framer-motion'
 
 const Banner2 = () => {
   return (
-    <section className='bg-white'>
+    <motion.div
+      initial={{ opacity: 0, x: -50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      className='bg-white bg3 flex flex-col justify-center'
+    >
       <div className='container py-14 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-8 space-y-6 md:space-y-0'>
         {/* Banner Text */}
         <motion.div
@@ -23,18 +27,8 @@ const Banner2 = () => {
             </a>
           </div>
         </motion.div>
-        {/* Banner Image */}
-        <div className='flex justify-center items-center'>
-          <motion.img
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            src='/img/Medicine.png'
-            alt=''
-            className='w-[400px] md:max-w-[500px] object-cover drop-shadow'
-          />
-        </div>
       </div>
-    </section>
+    </motion.div>
   )
 }
 

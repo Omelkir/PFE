@@ -123,6 +123,11 @@ code {
   background-size: cover;
   background-position-y: top;
 }
+.bg3 {
+  background-image: url('/img/banner_doctors_img/banner3.png');
+  background-size: cover;
+  background-position-y: top;
+}
 
 @media (max-width: 768px) {
   .bg2 {

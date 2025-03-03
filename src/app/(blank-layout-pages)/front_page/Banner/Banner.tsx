@@ -11,13 +11,13 @@ const Banner = () => {
     <section>
       <div className='container py-14 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-8 space-y-6 md:space-y-0'>
         {/* Banner Image */}
-        <div className='flex justify-center items-center'>
+        <div className='flex '>
           <motion.img
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
-            src='/img/img3.jpg'
+            src='/img/doctors/doctor2.png'
             alt=''
             className='w-[450px] md:max-w-[550px] rounded-[100%] object-cover drop-shadow'
           />

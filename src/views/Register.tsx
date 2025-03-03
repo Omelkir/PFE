@@ -74,6 +74,7 @@ const Register = () => {
     { label: 'Tunis', value: 23 },
     { label: 'Zaghouan', value: 24 }
   ]
+
   const handleImageChange = (e: any) => {
     const file = e.target.files[0]
     if (file) {

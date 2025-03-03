@@ -27,7 +27,7 @@ const NavbarMenu = [
   {
     id: 4,
     title: 'Laboratoire',
-    link: '#'
+    path: '/front_page/labo'
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const Navbar = () => {
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        className='py-2 px-20 bg-white flex justify-between items-center rounded-xl mt-3 ml-3 mr-3'
+        className='py-2 px-20 bg-white flex justify-between items-center'
       >
         {/* Logo section */}
         <div>
@@ -59,7 +59,9 @@ const Navbar = () => {
                 </a>
               </li>
             ))}
-            <Link className='underline'>Se connecter</Link>
+            <Link className='underline' href='/login'>
+              Se connecter
+            </Link>
           </ul>
         </div>
         {/* Mobile Hamburger menu section */}
