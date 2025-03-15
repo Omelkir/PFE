@@ -23,12 +23,13 @@ const FooterContent = () => {
       <p>
         <span>{`© ${new Date().getFullYear()}, Made with `}</span>
         <span>{`❤️`}</span>
-        <span>{` by `}</span>
-        <Link href='https://themeselection.com' target='_blank' className='text-primary'>
+        <span>{`, MediConnect `}</span>
+        {/* <span>{` by `}</span> */}
+        {/* <Link href='https://themeselection.com' target='_blank' className='text-primary'>
           ThemeSelection
-        </Link>
+        </Link> */}
       </p>
-      {!isBreakpointReached && (
+      {/* {!isBreakpointReached && (
         <div className='flex items-center gap-4'>
           <Link href='https://themeselection.com/license' target='_blank' className='text-primary'>
             License
@@ -47,7 +48,7 @@ const FooterContent = () => {
             Support
           </Link>
         </div>
-      )}
+      )} */}
     </div>
   )
 }

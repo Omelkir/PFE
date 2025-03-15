@@ -17,7 +17,7 @@ const NavbarMenu = [
   {
     id: 2,
     title: 'À propos de nous',
-    link: '#'
+    path: '/front_page/a-propos-de-nous'
   },
   {
     id: 3,
@@ -32,7 +32,12 @@ const NavbarMenu = [
   {
     id: 5,
     title: 'Contactez-nous',
-    link: '#'
+    path: '/front_page/contactez-nous'
+  },
+  {
+    id: 6,
+    title: 'Se connecter',
+    path: '/login'
   }
 ]
 const Navbar = () => {
@@ -42,7 +47,8 @@ const Navbar = () => {
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        className='py-2 px-20 bg-white flex justify-between items-center'
+        className='py-2 px-20 bg-white flex justify-between font-poppins items-center'
+        // style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10 }}
       >
         {/* Logo section */}
         <div>
@@ -53,15 +59,12 @@ const Navbar = () => {
           <ul className='flex items-center gap-3' style={{ listStyle: 'none' }}>
             {NavbarMenu.map(menu => (
               <li key={menu.id}>
-                <a href={menu.path} className='inline-block py-2 px-3 hover:text-secondary relative group'>
-                  <div className='w-2 h-2 bg-secondary absolute mt-4 rounded-full left-1/2 -translate-x-1/2 top-1/2 bottom-0 group-hover:block hidden'></div>
+                <a href={menu.path} className='inline-block py-2 px-3 navigation relative group'>
+                  <div className='w-2 h-2 absolute mt-4 left-1/2 -translate-x-1/2 top-1/2 bottom-0 group-hover:block hidden'></div>
                   {menu.title}
                 </a>
               </li>
             ))}
-            <Link className='underline' href='/login'>
-              Se connecter
-            </Link>
           </ul>
         </div>
         {/* Mobile Hamburger menu section */}

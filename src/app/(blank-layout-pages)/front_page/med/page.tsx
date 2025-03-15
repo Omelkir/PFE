@@ -12,8 +12,8 @@ import {
   TextField
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { Mail, MapPin, DollarSign } from 'lucide-react'
-import { FaRegClock } from 'react-icons/fa'
+import { Mail, MapPin, DollarSign, Coins, Banknote } from 'lucide-react'
+import { FaMoneyBillAlt, FaRegClock } from 'react-icons/fa'
 import RendezVousFormModal from '@/components/modals/rendezVousFormModal'
 import { SimpleSlideshow } from '@/components/auto-images/images'
 import { StarRating } from '@/components/ui/star-rating'
@@ -46,12 +46,12 @@ const Medecin = () => {
     { label: 'Zaghouan', value: 24 }
   ]
   const images = [
+    // {
+    //   src: '/img/banner_doctors_img/banner6.jpg',
+    //   alt: 'Mountain landscape with a lake'
+    // },
     {
-      src: '/img/banner_doctors_img/banner6.jpg',
-      alt: 'Mountain landscape with a lake'
-    },
-    {
-      src: '/img/banner_doctors_img/banner2.jpg',
+      src: '/img/banner_doctors_img/banner8.jpg',
       alt: 'Sunset over mountains'
     },
     {
@@ -114,7 +114,7 @@ const Medecin = () => {
     handleSave()
   }, [])
   return (
-    <div className='bg-white p-6'>
+    <div className='bg-white pl-3 pr-3'>
       <SimpleSlideshow interval={5000} images={images} />
       <div className='pt-6'>
         <h1 className='text-center text-4xl font-semibold mb-12 items-center separator'>Médecins</h1>
@@ -228,7 +228,7 @@ const Medecin = () => {
                       <FaRegClock className='w-4 h-4 mr-2 text-blue-500' />
                       <span>{medecin.horaires}</span>
 
-                      <DollarSign className='w-4 h-4 mr-2 text-blue-500 ml-12' />
+                      <FaMoneyBillAlt className='w-4 h-4 mr-2 text-blue-500 ml-12' />
                       <span>{medecin.tarif} dt</span>
                     </div>
                     <div className='flex justify-end mt-4'>

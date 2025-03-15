@@ -18,11 +18,14 @@ const Banner2 = () => {
           className='flex flex-col justify-center'
         >
           <div className='text-center md:text-left space-y-4 lg:max-w-[450px]'>
-            <h1 className='text-4xl font-bold !leading-snug'>
+            <h1 className='text-2xl md:text-4xl font-bold !leading-snug'>
               Pour toute question ou demande, n’hésitez pas à nous contacter.
             </h1>
             <p className='text-dark2'>Notre équipe est là pour vous aider !</p>
-            <a href='https://chat.whatsapp.com/FQSKgJ5f1eIAhlyF5sVym0' className='primary-btn !mt-8'>
+            {/* <a href='https://chat.whatsapp.com/FQSKgJ5f1eIAhlyF5sVym0' className='primary-btn !mt-8'>
+              Contactez-nous
+            </a> */}
+            <a href='/front_page/contactez-nous' className='primary-btn !mt-8'>
               Contactez-nous
             </a>
           </div>

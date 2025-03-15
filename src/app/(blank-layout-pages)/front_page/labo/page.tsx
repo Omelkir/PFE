@@ -116,7 +116,7 @@ const Laboratoire = () => {
     handleSave()
   }, [])
   return (
-    <div className='bg-white p-6'>
+    <div className='bg-white pl-3 pr-3'>
       <SimpleSlideshow interval={5000} images={images} />
       <div className='pt-6'>
         <h1 className='text-center text-4xl font-semibold mb-12 items-center separator'>Laboratoires</h1>
@@ -227,15 +227,11 @@ const Laboratoire = () => {
                         {villes.find(ville => ville.value === laboratoire.ville)?.label || 'Ville non définie'}
                       </span>
 
-                      <Mail className='w-4 h-4 mr-2 text-blue-500 ml-12' />
+                      <Mail className='w-4 h-4 mr-2 text-blue-500 ml-8' />
                       <span>{laboratoire.email}</span>
-                    </div>
-                    <div className='flex items-center text-gray-600 text-sm mt-4'>
-                      <FaRegClock className='w-4 h-4 mr-2 text-blue-500' />
-                      <span>{laboratoire.horaires}</span>
 
-                      <DollarSign className='w-4 h-4 mr-2 text-blue-500 ml-12' />
-                      <span>{laboratoire.tarif} dt</span>
+                      <FaRegClock className='w-4 h-4 mr-2 text-blue-500  m-8' />
+                      <span>{laboratoire.horaires}</span>
                     </div>
                     <div className='flex justify-end mt-4'>
                       <StarRating size='sm' />

@@ -126,7 +126,20 @@ const Register = () => {
   ]
 
   const clearForm = () => {
-    setData({ email: '', mdp: '', role: 0, nom_ut: '', spe: 0, ser: 0 })
+    setData({
+      imageSrc: '/img/placeholder-image.jpg',
+      image: '',
+      email: '',
+      mdp: '',
+      role: 0,
+      tarif: 0,
+      ville: 0,
+      horaires: '',
+      info: '',
+      nom_ut: '',
+      spe: 0,
+      ser: 0
+    })
     setControls({
       email: false,
       mdp: false,
@@ -148,9 +161,8 @@ const Register = () => {
 
       setControls(newControls)
 
-      // Vérifier si un champ est vide
       if (Object.values(newControls).some(value => value)) {
-        return // Ne pas continuer si un champ obligatoire est vide
+        return
       }
 
       const requestBody = JSON.stringify(data)
@@ -167,6 +179,7 @@ const Register = () => {
         alert(responseData.message)
       } else {
         setData(responseData)
+        clearForm()
       }
     } catch (error) {
       console.log('Erreur:', error)
@@ -206,8 +219,6 @@ const Register = () => {
                   className={`${controls?.role === true ? 'isReq' : ''}`}
                   value={data?.role || null}
                   onChange={(e: any) => {
-                    console.log(e)
-
                     if (e === null) {
                       setControls({ ...controls, role: true })
                       setData((prev: any) => ({
@@ -254,7 +265,7 @@ const Register = () => {
               <TextField
                 fullWidth
                 label='Nom utilisateur'
-                value={data?.nom_ut || null}
+                value={data?.nom_ut ?? ''}
                 className={`${controls?.nom_ut === true ? 'isReq' : ''}`}
                 onChange={(e: any) => {
                   if (e.target?.value.trim() === '') {
@@ -305,7 +316,7 @@ const Register = () => {
                     }
                   }
                 }}
-                value={data?.email || null}
+                value={data?.email ?? ''}
                 className={`${controls?.email === true ? 'isReq' : ''}`}
                 onChange={(e: any) => {
                   if (e.target?.value.trim() === '') {
@@ -328,7 +339,7 @@ const Register = () => {
             <Grid item xs={data.role == 2 || data.role === 3 ? 6 : 12} md={data.role == 2 || data.role === 3 ? 6 : 12}>
               <TextField
                 fullWidth
-                value={data?.mdp || null}
+                value={data?.mdp ?? ''}
                 label='Password'
                 type={isPasswordShown ? 'text' : 'password'}
                 InputLabelProps={{
@@ -382,7 +393,7 @@ const Register = () => {
                   <InputLabel>Spéciallité</InputLabel>
                   <Select
                     label='Spéciallité'
-                    value={data?.spe || null}
+                    value={data?.spe ?? ''}
                     onChange={(e: any) => {
                       if (e === null) {
                         setData({ ...data, spe: e.target.value })
@@ -429,7 +440,7 @@ const Register = () => {
                 <TextField
                   fullWidth
                   label='Tarif'
-                  value={data?.tarif || null}
+                  value={data?.tarif ?? ''}
                   onChange={(e: any) => {
                     setData((prev: any) => ({
                       ...prev,
@@ -458,7 +469,7 @@ const Register = () => {
                 <TextField
                   fullWidth
                   label='Horaire'
-                  value={data?.horaires || null}
+                  value={data?.horaires ?? ''}
                   onChange={(e: any) => {
                     setData((prev: any) => ({
                       ...prev,
@@ -512,7 +523,7 @@ const Register = () => {
                   fullWidth
                   label='Informations complémentaires'
                   multiline
-                  value={data?.info || null}
+                  value={data?.info ?? ''}
                   onChange={(e: any) => {
                     setData((prev: any) => ({
                       ...prev,
@@ -537,16 +548,7 @@ const Register = () => {
               fontSize: '1rem'
             }}
             onClick={() => {
-              // if (
-              //   data.email.trim() !== '' &&
-              //   data.mdp.trim() !== '' &&
-              //   data.nom.trim() !== '' &&
-              //   data.nom_ut.trim() !== '' &&
-              //   data.prenom.trim() !== '' &&
-              //   data.role !== 0
-              // ) {
               handleSave()
-              // }
             }}
           >
             S'inscrire

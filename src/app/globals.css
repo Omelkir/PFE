@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 :root {
   --border-radius: var(--mui-shape-borderRadius);
   --border-color: var(--mui-palette-divider);
@@ -121,14 +121,23 @@ code {
 .bg2 {
   background-image: url('/images/hero-bg.jpg');
   background-size: cover;
-  background-position-y: top;
 }
 .bg3 {
   background-image: url('/img/banner_doctors_img/banner3.png');
   background-size: cover;
   background-position-y: top;
 }
-
+.bg4 {
+  background-image: url('/img/banner_doctors_img/banner1.jpg') !important;
+  background-size: cover;
+  background-position-y: center;
+}
+.bg5 {
+  background-image: url('/img/banner_doctors_img/banner7.jpg');
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+}
 @media (max-width: 768px) {
   .bg2 {
     height: 300px;
@@ -439,4 +448,15 @@ h1 {
   font-weight: 500;
   padding-bottom: 10px;
   position: relative;
+}
+.navigation:hover {
+  text-decoration: underline;
+  text-underline-offset: 7px;
+  text-decoration-thickness: 1.5px;
+}
+.font-poppins {
+  font-family: initial;
+  font-weight: bolder;
+  font-style: inherit;
+  font-size: 17px;
 }

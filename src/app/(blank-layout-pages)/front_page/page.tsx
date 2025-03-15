@@ -12,7 +12,6 @@ const FrontPage = () => {
       <Banner />
       {/* <Subscribe /> */}
       <Banner2 />
-      <Footer />
     </div>
   )
 }

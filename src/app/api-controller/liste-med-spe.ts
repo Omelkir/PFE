@@ -1,5 +1,6 @@
 import pool from '@/utils/connexion'
-
+import { RowDataPacket } from 'mysql2'
+import { NextRequest, NextResponse } from 'next/server'
 export const liste = async (req: any) => {
   try {
     const { spe, nom_ut, ville } = req
@@ -21,9 +22,34 @@ export const liste = async (req: any) => {
       sql += ` AND ville = ?`
       params.push(ville)
     }
+    const [rows] = await pool.query<RowDataPacket[]>(sql, params)
 
-    const [rows] = await pool.query(sql, params)
-    console.log('Résultats de la requête:', rows)
+    // let totalCount = rows.length
+
+    // let currentPage = parseInt(req.query.page as string) || 1
+    // let itemsPerPage = parseInt(req.query.limit as string) || 6
+    // let offset = (currentPage - 1) * itemsPerPage
+    // let pi: any = {
+    //   total: totalCount,
+    //   currentPage: currentPage,
+    //   count: rows.length,
+    //   lastPage: Math.ceil(totalCount / itemsPerPage),
+    //   firstItem: offset + 1,
+    //   lastItem: offset + rows.length,
+    //   perPage: itemsPerPage.toString(),
+    //   firstPageUrl: `${process.env.BACK_HOST}/api/clients?search=&answer=null&limit=${itemsPerPage}&page=1`,
+    //   lastPageUrl: `${process.env.BACK_HOST}/api/clients?search=&answer=null&limit=${itemsPerPage}&page=${Math.ceil(
+    //     totalCount / itemsPerPage
+    //   )}`,
+    //   nextPageUrl:
+    //     currentPage < Math.ceil(totalCount / itemsPerPage)
+    //       ? `${process.env.BACK_HOST}/api/clients?search=&answer=null&limit=${itemsPerPage}&page=${currentPage + 1}`
+    //       : null,
+    //   prevPageUrl:
+    //     currentPage > 1
+    //       ? `${process.env.BACK_HOST}/api/clients?search=&answer=null&limit=${itemsPerPage}&page=${currentPage - 1}`
+    //       : null
+    // }
 
     return { erreur: false, data: rows }
   } catch (error) {

@@ -15,9 +15,9 @@ export const ajouter = async (req: any) => {
     const saltRounds = 10
     const hashedPassword = await bcrypt.hash(json.mdp, saltRounds)
 
-    await pool.query(`INSERT INTO medi_connect.compte (nom_ut, email, mdp, role,image,tarif,ville,horaires,service,spe,info) 
-                       VALUES ('${json.nom_ut}', '${json.email}', '${hashedPassword}', '${json.role}', '${json.image}', '${json.tarif}', '${json.ville}', '${json.horaires}', '${json.service}', '${json.spe}', '${json.info}')`)
-
+    const sql = `INSERT INTO medi_connect.compte (nom_ut, email, mdp, role,image,tarif,ville,horaires,service,spe,info) 
+                       VALUES ('${json.nom_ut}', '${json.email}', '${hashedPassword}', '${json.role}', '${json.image}', '${json.tarif}', '${json.ville}', '${json.horaires}', '${json.service}', '${json.spe}', '${json.info}')`
+    await pool.query(sql)
     return { erreur: false, data: true }
   } catch (error) {
     console.error('Erreur lors de l’enregistrement', error)
