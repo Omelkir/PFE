@@ -5,8 +5,16 @@ export const verifierUtilisateur = async (req: any) => {
   try {
     const { email, mdp } = req
 
-    const sql = `SELECT * FROM medi_connect.compte WHERE email = ?`
+    const sql = `SELECT *, 'utilisateur' AS type FROM medi_connect.utilisateur WHERE email = '${email}'
+UNION
+SELECT *, 'medecin' AS type FROM medi_connect.medecin WHERE email = '${email}'
+UNION
+SELECT *, 'laboratoire' AS type FROM medi_connect.laboratoire WHERE email = '${email}'
+UNION
+SELECT *, 'admin' AS type FROM medi_connect.admin WHERE email = '${email}'
+LIMIT 1;`
     const [rows]: any = await pool.query(sql, [email])
+    //console.log(rows)
 
     if (rows.length === 0) {
       return { erreur: true, message: 'Identifiants incorrects' }

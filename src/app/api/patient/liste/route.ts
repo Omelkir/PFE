@@ -1,10 +1,9 @@
 import { liste } from '@/app/api-controller/patient'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
-    const body = await req.json()
-    const data = await liste(body)
+    const data = await liste(req)
 
     return NextResponse.json(data)
   } catch (error) {

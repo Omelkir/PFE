@@ -4,46 +4,22 @@ import Card from '@mui/material/Card'
 import tableStyles from '@core/styles/table.module.css'
 import { useEffect, useState } from 'react'
 
-const Table = ({ onEditPatient }: { onEditPatient: (patient: any) => void }) => {
+const Table = ({
+  onEditPatient,
+  onDeletePatient
+}: {
+  onEditPatient: (patient: any) => void
+  onDeletePatient: (patient: any) => void
+}) => {
   const [rowsData, setRowsData] = useState<any[]>([])
 
-  const handleDelete = async (id: string) => {
-    const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer ce patient ?')
-    if (!confirmDelete) return
-
-    try {
-      const url = `${window.location.origin}/api/patient/supprimer/${id}`
-      const requestOptions = {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' }
-      }
-
-      const response = await fetch(url, requestOptions)
-
-      if (!response.ok) throw new Error('Erreur lors de la suppression')
-
-      const responseData = await response.json()
-
-      if (responseData.erreur) {
-        alert(responseData.message)
-      } else {
-        setRowsData(prevData => prevData.filter(patient => patient.id !== id))
-      }
-    } catch (error) {
-      console.error('Erreur:', error)
-      alert('Une erreur est survenue lors de la suppression.')
-    }
-  }
   async function handleSave() {
     try {
       const url = `${window.location.origin}/api/patient/liste`
 
-      const requestBody = JSON.stringify({})
-
       const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: requestBody
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
       }
 
       const response = await fetch(url, requestOptions)
@@ -102,7 +78,7 @@ const Table = ({ onEditPatient }: { onEditPatient: (patient: any) => void }) => 
                     onClick={() => onEditPatient(row)}
                   ></button>
                   <button
-                    onClick={() => handleDelete(row.id)}
+                    onClick={() => onDeletePatient(row)}
                     className='ri-delete-bin-line text-red-500 text-xl hover:text-2xl'
                   ></button>
                 </td>

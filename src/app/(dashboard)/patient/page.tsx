@@ -42,14 +42,22 @@ import Arrow from '@/views/dashboard/Arrow'
 import PatientModal from '@/components/modals/patient'
 import { useState } from 'react'
 import Table from './Table'
+import PatientDelete from '@/components/modals/deleteModal/patient'
+import Pagination from '@/components/ui/pagination'
 
-const Patient = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+const Patient = ({ paginatorInfo }: any) => {
+  const [isPatientModalOpen, setIsPatientModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [selectedPatient, setSelectedPatient] = useState<any>(null)
 
-  const handleOpenModal = (patient: any = null) => {
-    setSelectedPatient(patient) // Définit les données du patient s'il y en a, sinon null
-    setIsModalOpen(true)
+  const handleOpenPatientModal = (patient: any = null) => {
+    setSelectedPatient(patient)
+    setIsPatientModalOpen(true)
+  }
+
+  const handleOpenDeleteModal = (patient: any) => {
+    setSelectedPatient(patient)
+    setIsDeleteModalOpen(true)
   }
 
   return (
@@ -63,19 +71,33 @@ const Patient = () => {
             variant='contained'
             color='primary'
             className='h-12 w-1/6 mb-12'
-            onClick={() => handleOpenModal()} // Ouvre le modal en mode ajout
+            onClick={() => handleOpenPatientModal()}
           >
-            <IconUserPlus className='mr-2' /> Ajouter un patient
+            <IconUserPlus className='mr-2' /> Ajouter
           </Button>
 
           <PatientModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            patientData={selectedPatient} // Passe les données du patient sélectionné
+            isOpen={isPatientModalOpen}
+            onClose={() => setIsPatientModalOpen(false)}
+            patientData={selectedPatient}
+          />
+
+          <PatientDelete
+            isOpen={isDeleteModalOpen}
+            onClose={() => setIsDeleteModalOpen(false)}
+            patientData={selectedPatient}
           />
 
           <Grid item xs={12}>
-            <Table onEditPatient={handleOpenModal} />
+            <Table onEditPatient={handleOpenPatientModal} onDeletePatient={handleOpenDeleteModal} />
+          </Grid>
+          <Grid item xs={12} className='mt-6 justify-items-end'>
+            <Pagination
+            // total={paginatorInfo.total}
+            // current={paginatorInfo.currentPage}
+            // pageSize={paginatorInfo.perPage}
+            // onChange={onPagination}
+            />
           </Grid>
         </CardContent>
       </Card>

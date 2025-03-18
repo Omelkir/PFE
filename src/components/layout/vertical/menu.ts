@@ -9,7 +9,7 @@ export const menuMed = [
     path: '/patient',
     icon: 'ri-user-fill'
   },
-  { label: 'Historique médical', path: '/cal', icon: 'ri-history-fill' },
+  { label: 'Dossiers médicaux ', path: '/cal', icon: 'ri-history-fill' },
   {
     label: 'Ordonnances',
     path: '/de',
